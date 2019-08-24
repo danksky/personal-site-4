@@ -1,19 +1,24 @@
 import * as THREE from "three";
-import Preload from '../../media/3D/pre-complete-scene-2.json';
+import Preload from '../../media/3D/pre-complete-scene.json';
 
 export default function GameManager (context) {
 	// === THREE.JS CODE START ===
 	var scene = new THREE.Scene();
 	var renderer = new THREE.WebGLRenderer({alpha: true});
-	renderer.setSize( /*window.innerWidth*/ 2560, /*window.innerHeight*/ 1600);
+	renderer.setSize( window.innerWidth, window.innerHeight);
 	renderer.setPixelRatio( 2 );
 	renderer.shadowMap.enabled = true;
+	renderer.gammaFactor = 2.2;
+	renderer.gammaOutput = true;
 	// document.body.appendChild( renderer.domElement );
 	// use ref as a mount point of the Three.js scene instead of the document.body
 	context.mount.appendChild( renderer.domElement );
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 	var cube = new THREE.Mesh( geometry, material );
+
+	// HERE"S THE CUBE
+	cube.position.y = 5;
 	scene.add( cube );
 
 	var loader = new THREE.ObjectLoader();
@@ -24,6 +29,7 @@ export default function GameManager (context) {
 	scene.add( object );
 	var camera = object.children[0];
 	console.log(object);
+	console.log(renderer)
 
 	var animate = function () {
 		requestAnimationFrame( animate );

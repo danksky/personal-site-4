@@ -45,6 +45,10 @@ class Home extends Component {
 	render() {
 		return (
 			<div className="App">
+				<div className="construction-message">
+					My personal website is currently under construction. Please check back again soon, or contact me at <a href="mailto:daniel.kawalsky@gmail.com">first.last@gmail.com</a>
+				</div>
+				<div ref={ref => (this.mount = ref)}></div>
 				<header className="App-header">
 					<p>{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
@@ -60,7 +64,6 @@ class Home extends Component {
 					</form>
 					<p>{this.state.responseToPost}</p>
 				</header>
-				<div ref={ref => (this.mount = ref)}></div>
 			</div>
 		);
 	}
@@ -69,6 +72,11 @@ class Home extends Component {
 const App = () => (
 	<Router>
 		<div>
+			<Switch>
+				<Route path="/" exact component={Home} />
+				<Route path="/another-page/" component={AnotherPage} />
+				<Route component={NotFound} />
+			</Switch>
 			<nav>
 				<ul>
 					<li>
@@ -78,13 +86,7 @@ const App = () => (
 						<Link to="/another-page/">Another Page</Link>
 					</li>
 				</ul>
-			</nav>
-
-			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/another-page/" component={AnotherPage} />
-				<Route component={NotFound} />
-			</Switch>
+			</nav>			
 		</div>
 	</Router>
 );
