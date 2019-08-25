@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import Preload from '../../media/3D/pre-complete-scene.json';
+import Preload from '../../media/3D/pre-complete-scene-4-hobby.json';
 
 export default function GameManager (context) {
 	// === THREE.JS CODE START ===
