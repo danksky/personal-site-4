@@ -18,8 +18,8 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-favicon": "^2.0.1",
     "react-three-renderer": "^3.2.4",
-    "serve-favicon": "^2.5.0",
     "three": "^0.107.0"
   },
   "devDependencies": {
