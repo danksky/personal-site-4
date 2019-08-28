@@ -22,6 +22,7 @@ export default function SceneManager(gameManager) {
 			width: window.innerWidth,
 			height: window.innerHeight
 		};
+		console.log(screenDimensions);
 		scene = buildScene();
 		renderer = buildRender(screenDimensions);
 		gameManager.canvas = renderer.domElement;
@@ -42,7 +43,7 @@ export default function SceneManager(gameManager) {
 
 		scene.add( object );
 		camera = object.children[0];
-
+		
 		if (this.onWindowResize)
 			this.onWindowResize();
 	};
@@ -247,8 +248,7 @@ export default function SceneManager(gameManager) {
 
 	this.onWindowResize = function() {
 		const { width, height } = gameManager.canvas;
-
-		console.log(`onWindowResize(width=${width}, height=${height})`);
+		console.log(`SceneManager.onWindowResize(width=${width}, height=${height})`);
 		if (sceneSubjects) {
 			screenDimensions.width = width;
 			screenDimensions.height = height;

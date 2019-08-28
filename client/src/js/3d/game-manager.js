@@ -36,11 +36,11 @@ export default function GameManager (context) {
 		// portrait
 		LandscapeScreen.style.display = "none";
 
-		console.log("this.resizeCanvas()");
-		this.canvas.style.width = '100%';
-		this.canvas.style.height= '100%';
+		console.log("GameManager.resizeCanvas()");
+		// this.canvas.style.width = '100%';
+		// this.canvas.style.height= '100%';
 		this.canvas.width  = this.canvas.offsetWidth;
-		this.canvas.height = this.canvas.offsetHeight;	    
+		this.canvas.height = this.canvas.offsetHeight;
 		sceneManager.onWindowResize();
 	};
 
