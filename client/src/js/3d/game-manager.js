@@ -1,42 +1,165 @@
-import * as THREE from "three";
-import Preload from '../../media/3D/pre-complete-scene-4-hobby.json';
+import {
+	// BrowserView,
+	// MobileView,
+	// isBrowser,
+	isMobile
+} from "react-device-detect";
+
+import SceneManager from './scene-manager.js'
 
 export default function GameManager (context) {
-	// === THREE.JS CODE START ===
-	var scene = new THREE.Scene();
-	var renderer = new THREE.WebGLRenderer({alpha: true});
-	renderer.setSize( window.innerWidth, window.innerHeight);
-	renderer.setPixelRatio( 2 );
-	renderer.shadowMap.enabled = true;
-	renderer.gammaFactor = 2.2;
-	renderer.gammaOutput = true;
-	// document.body.appendChild( renderer.domElement );
-	// use ref as a mount point of the Three.js scene instead of the document.body
-	context.mount.appendChild( renderer.domElement );
-	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	var cube = new THREE.Mesh( geometry, material );
+	
+	this.canvas = null;
+	var sceneManager = null;
 
-	// HERE"S THE CUBE
-	cube.position.y = 5;
-	scene.add( cube );
+	var LandscapeScreen;
 
-	var loader = new THREE.ObjectLoader();
+	function render () {
+		requestAnimationFrame(render);
+		sceneManager.update();
+	}
 
-	// Alternatively, to parse a previously loaded JSON structure
-	var object = loader.parse( Preload );
+	this.resizeCanvas = function () {
+		if (!this.canvas) { // if unset, runs init, which eventually leads back to here through this.bindEventListeners.
+			this.init();
+			return;
+		}
 
-	scene.add( object );
-	var camera = object.children[0];
-	console.log(object);
-	console.log(renderer)
+		if (isMobile) {// tablet or phone
+			console.log("sceneManager.init() isMobile");
+			if (window.innerWidth > window.innerHeight) {  // landscape
+				console.log("sceneManager.init() isMobile landscape");
+				LandscapeScreen.style.display = "block";
+				return;
+			} 
+		}
+		// portrait
+		LandscapeScreen.style.display = "none";
 
-	var animate = function () {
-		requestAnimationFrame( animate );
-		cube.rotation.x += 0.01;
-		cube.rotation.y += 0.01;
-		renderer.render( scene, camera );
+		console.log("this.resizeCanvas()");
+		this.canvas.style.width = '100%';
+		this.canvas.style.height= '100%';
+		this.canvas.width  = this.canvas.offsetWidth;
+		this.canvas.height = this.canvas.offsetHeight;	    
+		sceneManager.onWindowResize();
 	};
-	animate();
-	// === THREE.JS EXAMPLE CODE END ===
+
+	this.bindEventListeners = function () {
+		// window.onresize = this.resizeCanvas();
+		this.canvas.addEventListener( 'mousemove'	, sceneManager.onMouseMove,	false );
+		this.canvas.addEventListener( 'mousedown'	, sceneManager.onMouseDown, false );
+		this.canvas.addEventListener( 'mouseup'		, sceneManager.onMouseUp, 	false );
+		this.canvas.addEventListener( 'mouseenter'	, sceneManager.onMouseEnter,false );
+		this.canvas.addEventListener( 'mouseleave'	, sceneManager.onMouseLeave,false );
+		this.canvas.addEventListener( 'touchstart' 	, sceneManager.onTouchStart,false );
+		this.canvas.addEventListener( 'touchmove' 	, sceneManager.onTouchMove,	false );
+		this.canvas.addEventListener( 'touchend' 	, sceneManager.onTouchEnd,	false );
+		this.resizeCanvas();
+	};
+
+	this.init = function() {
+		if (this.canvas || sceneManager) // prevents multiple instances. 
+			return;
+
+
+
+		LandscapeScreen = document.getElementById('Landscape');
+		if (isMobile) {// tablet or phone
+			console.log("sceneManager.init() isMobile");
+			if (window.innerWidth > window.innerHeight) {  // landscape
+				console.log("sceneManager.init() isMobile landscape");
+				LandscapeScreen.style.display = "block";
+				return;
+			} 
+		}
+		// portrait
+		LandscapeScreen.style.display = "none";
+
+		sceneManager = new SceneManager(this);
+		context.mount.appendChild( this.canvas );
+		this.bindEventListeners();
+		render();
+	};
+
+	this.init(); 
 };
+
+/*
+ function HeaderManager() {
+
+	var LandscapeScreen;
+
+	var this.canvas;
+	var sceneManager;
+
+	function render() {
+		requestAnimationFrame(render);
+		sceneManager.update();
+	};
+
+	this.resizeCanvas = function () {
+		if (!this.canvas) { // if unset, runs init, which eventually leads back to here through this.bindEventListeners.
+			this.init();
+			return;
+		}
+
+		if (isMobile) {// tablet or phone
+			console.log("sceneManager.init() isMobile");
+			if (window.innerWidth > window.innerHeight) {  // landscape
+				console.log("sceneManager.init() isMobile landscape");
+				LandscapeScreen.style.display = "block";
+				return;
+			} 
+		}
+		// portrait
+		LandscapeScreen.style.display = "none";
+
+		console.log("this.resizeCanvas()");
+		this.canvas.style.width = '100%';
+		this.canvas.style.height= '100%';
+		this.canvas.width  = this.canvas.offsetWidth;
+		this.canvas.height = this.canvas.offsetHeight;	    
+		sceneManager.onWindowResize();
+	};
+
+	this.bindEventListeners = function () {
+		// window.onresize = this.resizeCanvas();
+		this.canvas.addEventListener( 'mousemove'	, sceneManager.onMouseMove,	false );
+		this.canvas.addEventListener( 'mousedown'	, sceneManager.onMouseDown, false );
+		this.canvas.addEventListener( 'mouseup'		, sceneManager.onMouseUp, 	false );
+		this.canvas.addEventListener( 'mouseenter'	, sceneManager.onMouseEnter,false );
+		this.canvas.addEventListener( 'mouseleave'	, sceneManager.onMouseLeave,false );
+		this.canvas.addEventListener( 'touchstart' 	, sceneManager.onTouchStart,false );
+		this.canvas.addEventListener( 'touchmove' 	, sceneManager.onTouchMove,	false );
+		this.canvas.addEventListener( 'touchend' 	, sceneManager.onTouchEnd,	false );
+		this.resizeCanvas();
+	};
+
+	this.init = function() {
+		if (this.canvas || sceneManager) // prevents multiple instances. 
+			return;
+
+		LandscapeScreen = document.getElementById('Landscape');
+		if (isMobile) {// tablet or phone
+			console.log("sceneManager.init() isMobile");
+			if (window.innerWidth > window.innerHeight) {  // landscape
+				console.log("sceneManager.init() isMobile landscape");
+				LandscapeScreen.style.display = "block";
+				return;
+			} 
+		}
+		// portrait
+		LandscapeScreen.style.display = "none";
+
+		this.canvas = document.getElementById("header-this.canvas");
+		sceneManager = new SceneManager(this.canvas);
+
+		this.bindEventListeners();
+		render();
+	};
+
+	this.init(); 
+}
+
+
+*/
