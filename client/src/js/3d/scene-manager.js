@@ -1,5 +1,6 @@
 import * as THREE from "three";
-import Preload from '../../media/3D/pre-complete-scene-4-hobby.json';
+import Preload from '../../media/3D/complete-scene.json';
+import NameConstructionSite from './scene-subjects/name-construction-site/name-construction-site.js';
 
 export default function SceneManager(gameManager) {
 	var clock;
@@ -27,7 +28,6 @@ export default function SceneManager(gameManager) {
 		renderer = buildRender(screenDimensions);
 		gameManager.canvas = renderer.domElement;
 		camera = buildCamera(screenDimensions);
-		sceneSubjects = createSceneSubjects(scene);
 		raycaster = new THREE.Raycaster();
 		mouse = {
 			position: new THREE.Vector2(),
@@ -35,15 +35,7 @@ export default function SceneManager(gameManager) {
 			down: false,
 			over: true
 		};
-
-		var loader = new THREE.ObjectLoader();
-
-		// Alternatively, to parse a previously loaded JSON structure
-		var object = loader.parse( Preload );
-
-		scene.add( object );
-		camera = object.children[0];
-		
+		sceneSubjects = addSceneSubjects(scene);
 		if (this.onWindowResize)
 			this.onWindowResize();
 	};
@@ -85,8 +77,15 @@ export default function SceneManager(gameManager) {
 		return camera;
 	}
 
-	function createSceneSubjects(scene) {
+	function addSceneSubjects(scene) {
+		var loader = new THREE.ObjectLoader();
+		// Parse a previously loaded JSON structure
+		var sceneObject = loader.parse( Preload );
+		console.log(sceneObject);
+		scene.add( sceneObject );
+		camera = sceneObject.children[0];
 		const sceneSubjects = [
+			new NameConstructionSite(sceneObject.children[3]),
 			// new GeneralLights(scene),
 			// new Burger(scene),
 			// new InteractiveLogo(scene)
@@ -156,7 +155,6 @@ export default function SceneManager(gameManager) {
 		// 	sceneSubjects[1].drag((mouse.position.x - mouse.prevPosition.x) * 4);
 		// }  
 
-		// console.log(mouse);
 		// update the picking ray with the camera and mouse position
 		raycaster.setFromCamera( mouse.position, camera );
 		var intersects = raycaster.intersectObjects( scene.children, true );

@@ -45,10 +45,10 @@ class Home extends Component {
 	render() {
 		return (
 			<div className="App">
-				<div style={{fontSize: "30px", position: "relative", top: "100px", "textAlign": "center", margin: "auto", zIndex: 10}}>
+				<div style={{ "height": "100%", width: "100%"}} ref={ref => (this.mount = ref)}></div>
+				<div style={{fontSize: "30px", position: "absolute", top: "100px", "textAlign": "center", margin: "auto", zIndex: 10}}>
 					My personal website is currently under construction. Please check back again soon, or contact me at <br/>[first . last @ gmail . com]
 				</div>
-				<div style={{ "height": "100%", width: "100%"}} ref={ref => (this.mount = ref)}></div>
 				<header className="App-header">
 					<p>{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
