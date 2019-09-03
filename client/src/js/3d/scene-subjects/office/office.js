@@ -1,4 +1,5 @@
 import LaptopScreen from './laptop-screen.js';
+import PaperAirplane from './paper-airplane.js';
 
 export default function Office(group) {
 
@@ -24,6 +25,7 @@ export default function Office(group) {
 
 	function assignChildren () {
 		children.laptopScreen = new LaptopScreen(group.children[1].children[0].children[1]);
+		children.paperAirplane = new PaperAirplane(group.children[7]);
 	}
 	
 	this.update = function(time) {
