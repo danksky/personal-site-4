@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Preload from '../../media/3D/complete-scene.json';
 import NameConstructionSite from './scene-subjects/name-construction-site/name-construction-site.js';
+import Office from './scene-subjects/office/office.js';
 
 export default function SceneManager(gameManager) {
 	var clock;
@@ -86,6 +87,7 @@ export default function SceneManager(gameManager) {
 		camera = sceneObject.children[0];
 		const sceneSubjects = [
 			new NameConstructionSite(sceneObject.children[3]),
+			new Office(sceneObject.children[4]),
 			// new GeneralLights(scene),
 			// new Burger(scene),
 			// new InteractiveLogo(scene)
