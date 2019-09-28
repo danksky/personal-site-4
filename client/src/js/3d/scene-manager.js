@@ -107,6 +107,8 @@ export default function SceneManager(gameManager) {
 		mouse.position.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
 		mouse.position.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 
+		console.log(mouse.position.x, mouse.position.y);
+
 		raycaster.setFromCamera( mouse.position, camera );
 		var intersects = raycaster.intersectObjects( scene.children, true );
 
@@ -153,9 +155,9 @@ export default function SceneManager(gameManager) {
 		mouse.position.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
 		mouse.position.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 		// Doesn't make sense to put this in the raycast after already activated. 
-		// if (sceneSubjects[1].state.dragging) {
-		// 	sceneSubjects[1].drag((mouse.position.x - mouse.prevPosition.x) * 4);
-		// }  
+		if (sceneSubjects.length === 2) {
+			sceneSubjects[1].approachWithMouse(mouse.position);
+		}  
 
 		// update the picking ray with the camera and mouse position
 		raycaster.setFromCamera( mouse.position, camera );
@@ -213,7 +215,7 @@ export default function SceneManager(gameManager) {
 			// sceneSubjects[1].drag((mouse.position.x - mouse.prevPosition.x) * 4);
 		// }  
 
-		// console.log(mouse);
+		console.log(mouse.position);
 		// update the picking ray with the camera and mouse position
 		raycaster.setFromCamera( mouse.position, camera );
 		var intersects = raycaster.intersectObjects( scene.children, true );

@@ -4,7 +4,7 @@ export default function PaperAirplane(child) {
 
 	var gameObject = null;
 	var originalPosition = null;
-	var previousPosition = null;
+	var finalPosition = null;
 
 	this.state = {
 		flying: false
@@ -21,17 +21,26 @@ export default function PaperAirplane(child) {
 		gameObject = child;
 		// Not sure how this assignment works, but trying to copy value not address by copying primitives.
 		originalPosition = gameObject.position.clone();
-		previousPosition = originalPosition.clone();
+		finalPosition = new THREE.Vector3(-4.2, originalPosition.y, -4.729);
 	}
 	this.init();
 
-	this.fly = function (deltaX) {
-		// 𝑦 = 0.001𝑥2−2𝑥 (quadratic function)
-		var flightPath = new THREE.Vector3(deltaX, 0, 0);
+	this.fly = function (distanceFromCursor) {
+		// 𝑦 = 0.001𝑥2−2𝑥 (quadratic function) - for later iterations...
+
+
+		var flightPath = new THREE.Vector3(7.8, 0, -1.176);
 		var newPosition = new THREE.Vector3();
-		newPosition.addVectors(originalPosition, flightPath);
+		var delta = new THREE.Vector3(distanceFromCursor, distanceFromCursor, distanceFromCursor);
+		newPosition.addVectors(originalPosition, flightPath.multiply(delta));
 		gameObject.position.copy(newPosition);
-		previousPosition = newPosition.clone();
+		
+		/*
+
+		Functions:
+		x = exponential function determined by two points: (0,0) and (1, rangeofxvalues=(xmax - xmin))
+		z = quadratic function with relation to x determined by two points: (x0, z0) and (x1, z1)
+		*/
 	}
 	
 	this.update = function(time) {

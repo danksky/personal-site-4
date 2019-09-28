@@ -1,9 +1,11 @@
+import * as THREE from "three";
 import LaptopScreen from './laptop-screen.js';
 import PaperAirplane from './paper-airplane.js';
 
 export default function Office(group) {
 
 	var children = {};
+	var center = new THREE.Vector2(-0.6, 0.25)
 
 	this.state = {
 		dragging: false
@@ -19,8 +21,9 @@ export default function Office(group) {
 	}
 	this.init();
 
-	this.drag = function (deltaX) {
-		
+	this.approachWithMouse = function (mousePosition) {
+		if (children.paperAirplane)
+			children.paperAirplane.fly(1-mousePosition.distanceTo(center)/2);
 	}
 
 	function assignChildren () {
