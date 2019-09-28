@@ -5,7 +5,7 @@ import AirplaneTakeoff from './airplane-takeoff.js';
 export default function Travel(group) {
 
 	var children = {};
-	var center = new THREE.Vector2(0.6, -0.4)
+	var center = new THREE.Vector2(0.6, -0.4);
 
 	this.state = {
 		dragging: false

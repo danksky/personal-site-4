@@ -158,10 +158,12 @@ export default function SceneManager(gameManager) {
 		mouse.position.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
 		mouse.position.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 		// Doesn't make sense to put this in the raycast after already activated. 
-		if (sceneSubjects.length === 3) {
+		if (sceneSubjects[0]) 
+			sceneSubjects[0].approachWithMouse(mouse.position);
+		if (sceneSubjects[1]) 
 			sceneSubjects[1].approachWithMouse(mouse.position);
+		if (sceneSubjects[2]) 
 			sceneSubjects[2].approachWithMouse(mouse.position);
-		}  
 
 		// update the picking ray with the camera and mouse position
 		raycaster.setFromCamera( mouse.position, camera );

@@ -6,7 +6,7 @@ import SwivelChair from './swivel-chair.js';
 export default function Office(group) {
 
 	var children = {};
-	var center = new THREE.Vector2(-0.6, 0.25)
+	var center = new THREE.Vector2(-0.6, 0.25);
 
 	this.state = {
 		dragging: false

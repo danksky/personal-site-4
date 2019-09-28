@@ -46,7 +46,7 @@ class Home extends Component {
 		return (
 			<div className="App">
 				<div style={{ "height": "100%", width: "100%"}} ref={ref => (this.mount = ref)}></div>
-				<div style={{fontSize: "30px", position: "absolute", top: "100px", "textAlign": "center", margin: "auto", zIndex: 10}}>
+				<div style={{fontSize: "30px", position: "absolute", top: "100px", "textAlign": "center", margin: "auto", zIndex: -1}}>
 					My personal website is currently under construction. Please check back again soon, or contact me at <br/>[first . last @ gmail . com]
 				</div>
 				<header className="App-header">

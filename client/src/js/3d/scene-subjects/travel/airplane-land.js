@@ -11,15 +11,6 @@ export default function AirplaneLand(child) {
 		flying: false
 	};
 
-	// x0: -1.9,	y0: 1,	z0: 8.9
-	// x1: 0,		y1: 0,	z1: 8.3
-	// x2: 3,		y2: 0,	z2: 7.3
-
-// PLANE TAKEOFF
-	// x0: 4,		y0: 0,	z0: 7
-	// x1: 7,		y1: 0,	z1: 6
-	// x2: 8.9,		y2: 1,	z2: 5.4
-
 	this.prevTime = -1;
 
 	this.init = function() {
