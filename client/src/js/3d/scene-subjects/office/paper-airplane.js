@@ -29,7 +29,8 @@ export default function PaperAirplane(child) {
 		// 𝑦 = 0.001𝑥2−2𝑥 (quadratic function) - for later iterations...
 
 
-		var flightPath = new THREE.Vector3(7.8, 0, -1.176);
+		var flightPath = new THREE.Vector3();
+		flightPath.subVectors(finalPosition, originalPosition);
 		var newPosition = new THREE.Vector3();
 		var delta = new THREE.Vector3(distanceFromCursor, distanceFromCursor, distanceFromCursor);
 		newPosition.addVectors(originalPosition, flightPath.multiply(delta));
