@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import Preload from '../../media/3D/complete-scene.json';
+import PreloadMobile from '../../media/3D/complete-scene-mobile.json';
 import NameConstructionSite from './scene-subjects/name-construction-site/name-construction-site.js';
 import Office from './scene-subjects/office/office.js';
+import Travel from './scene-subjects/travel/travel.js';
 
 export default function SceneManager(gameManager) {
 	var clock;
@@ -88,6 +90,7 @@ export default function SceneManager(gameManager) {
 		const sceneSubjects = [
 			new NameConstructionSite(sceneObject.children[3]),
 			new Office(sceneObject.children[4]),
+			new Travel(sceneObject.children[6])
 			// new GeneralLights(scene),
 			// new Burger(scene),
 			// new InteractiveLogo(scene)
@@ -155,8 +158,9 @@ export default function SceneManager(gameManager) {
 		mouse.position.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
 		mouse.position.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 		// Doesn't make sense to put this in the raycast after already activated. 
-		if (sceneSubjects.length === 2) {
+		if (sceneSubjects.length === 3) {
 			sceneSubjects[1].approachWithMouse(mouse.position);
+			sceneSubjects[2].approachWithMouse(mouse.position);
 		}  
 
 		// update the picking ray with the camera and mouse position

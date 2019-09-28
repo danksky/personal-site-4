@@ -20,14 +20,14 @@ export default function SwivelChair(child) {
 	}
 	this.init();
 
-	this.swivel = function (distanceFromCursor) {
+	this.swivel = function (t) {
 		//-15.8 -> -140
 
 		var rotationSpeed = new THREE.Vector3();
 		rotationSpeed.subVectors(finalRotation.toVector3(), originalRotation.toVector3());
 		var newRotation = new THREE.Euler();
 		var newRotationVector3 = new THREE.Vector3();
-		var delta = new THREE.Vector3(distanceFromCursor, distanceFromCursor, distanceFromCursor);
+		var delta = new THREE.Vector3(t, t, t);
 		newRotationVector3.addVectors(originalRotation.toVector3(), rotationSpeed.multiply(delta));
 		newRotation.setFromVector3(newRotationVector3);
 		gameObject.rotation.copy(newRotation);

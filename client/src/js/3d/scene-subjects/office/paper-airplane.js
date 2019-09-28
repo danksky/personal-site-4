@@ -25,14 +25,14 @@ export default function PaperAirplane(child) {
 	}
 	this.init();
 
-	this.fly = function (distanceFromCursor) {
+	this.fly = function (t) {
 		// 𝑦 = 0.001𝑥2−2𝑥 (quadratic function) - for later iterations...
 
 
 		var flightPath = new THREE.Vector3();
 		flightPath.subVectors(finalPosition, originalPosition);
 		var newPosition = new THREE.Vector3();
-		var delta = new THREE.Vector3(distanceFromCursor, distanceFromCursor, distanceFromCursor);
+		var delta = new THREE.Vector3(t, t, t);
 		newPosition.addVectors(originalPosition, flightPath.multiply(delta));
 		gameObject.position.copy(newPosition);
 		
