@@ -16,8 +16,6 @@ export default function Helicopter(child) {
 
 	this.prevTime = -1;
 
-	// #15AEC6
-
 	this.init = function() {
 		gameObject = child;
 		propeller = child.children[2];
@@ -45,7 +43,6 @@ export default function Helicopter(child) {
 	
 	this.update = function(time) {
 		this.prevTime = time;
-		
 		propeller.rotation.setFromVector3(new THREE.Vector3(0,time,0));
 	}
 

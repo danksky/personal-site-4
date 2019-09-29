@@ -2,6 +2,7 @@ import * as THREE from "three";
 import Preload from '../../media/3D/complete-scene.json';
 import PreloadMobile from '../../media/3D/complete-scene-mobile.json';
 import NameConstructionSite from './scene-subjects/name-construction-site/name-construction-site.js';
+import Goals from './scene-subjects/goals/goals.js';
 import Office from './scene-subjects/office/office.js';
 import Travel from './scene-subjects/travel/travel.js';
 
@@ -90,10 +91,8 @@ export default function SceneManager(gameManager) {
 		const sceneSubjects = [
 			new NameConstructionSite(sceneObject.children[3]),
 			new Office(sceneObject.children[4]),
-			new Travel(sceneObject.children[6])
-			// new GeneralLights(scene),
-			// new Burger(scene),
-			// new InteractiveLogo(scene)
+			new Goals(sceneObject.children[5]),
+			new Travel(sceneObject.children[6]),
 		];
 
 		return sceneSubjects;
@@ -158,12 +157,9 @@ export default function SceneManager(gameManager) {
 		mouse.position.x = ( ( event.clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
 		mouse.position.y = - ( ( event.clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 		// Doesn't make sense to put this in the raycast after already activated. 
-		if (sceneSubjects[0]) 
-			sceneSubjects[0].approachWithMouse(mouse.position);
-		if (sceneSubjects[1]) 
-			sceneSubjects[1].approachWithMouse(mouse.position);
-		if (sceneSubjects[2]) 
-			sceneSubjects[2].approachWithMouse(mouse.position);
+		sceneSubjects.forEach((sceneSubject) => {
+			sceneSubject.approachWithMouse(mouse.position);
+		});
 
 		// update the picking ray with the camera and mouse position
 		raycaster.setFromCamera( mouse.position, camera );
