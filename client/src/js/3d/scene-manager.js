@@ -153,6 +153,8 @@ export default function SceneManager(gameManager) {
 	};
 
 	this.onMouseMove = function ( event ) {
+		if (isMobile)
+			return;
 		var rect = renderer.domElement.getBoundingClientRect();
 		mouse.prevPosition.x = mouse.position.x;
 		mouse.prevPosition.y = mouse.position.y;
