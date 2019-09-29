@@ -269,6 +269,8 @@ export default function SceneManager(gameManager) {
 
 	this.onWindowResize = function() {
 		const { width, height } = gameManager.canvas;
+		if (renderer.domElement.getBoundingClientRect().top < 0) 
+			renderer.domElement.style.top = 0;
 		console.log(`SceneManager.onWindowResize(width=${width}, height=${height})`);
 		if (sceneSubjects) {
 			screenDimensions.width = width;

@@ -25,6 +25,8 @@ export default function Helicopter(child) {
 		dippedPaintColor = new THREE.Color(0x15aec6);
 		originalPosition = new THREE.Vector3(-0.5, 2, 2.25);
 		gameObject.position.copy(originalPosition);
+		// QUICK FIX
+		blockW.material.color = dippedPaintColor;
 	}
 	this.init();
 
@@ -34,10 +36,10 @@ export default function Helicopter(child) {
 		gameObject.position.copy(newPosition);
 		if (t < 0.5 && this.state.stage !== 0) {
 			this.state.stage = 0;
-			blockW.material.color = dippedPaintColor;
+			//blockW.material.color = dippedPaintColor;
 		} else if (t >= 0.5 && this.state.stage !== 1) {
 			this.state.stage = 1;
-			blockW.material.color = originalPaintColor;
+			//blockW.material.color = originalPaintColor;
 		} 
 	}
 	
