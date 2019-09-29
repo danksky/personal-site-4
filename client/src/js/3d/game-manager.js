@@ -1,9 +1,4 @@
-import {
-	// BrowserView,
-	// MobileView,
-	// isBrowser,
-	isMobile
-} from "react-device-detect";
+import {isMobile} from "react-device-detect";
 
 import SceneManager from './scene-manager.js'
 
@@ -40,12 +35,13 @@ export default function GameManager (context) {
 		// this.canvas.style.width = '100%';
 		// this.canvas.style.height= '100%';
 		this.canvas.width  = this.canvas.offsetWidth;
-		this.canvas.height = this.canvas.offsetHeight;// TODO for mbile: * 2;
+		this.canvas.height = this.canvas.offsetHeight * (isMobile ? 2 : 1);
 		sceneManager.onWindowResize();
 	};
 
 	this.bindEventListeners = function () {
 		// window.onresize = this.resizeCanvas();
+		window.addEventListener		( 'scroll'		, sceneManager.onScroll, 	false );
 		this.canvas.addEventListener( 'mousemove'	, sceneManager.onMouseMove,	false );
 		this.canvas.addEventListener( 'mousedown'	, sceneManager.onMouseDown, false );
 		this.canvas.addEventListener( 'mouseup'		, sceneManager.onMouseUp, 	false );

@@ -8,6 +8,7 @@ export default function Office(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(-0.6, 0.25);
+	var scrollTarget = 0.68;
 	var transition = null;
 
 	this.state = {
@@ -27,7 +28,17 @@ export default function Office(group) {
 
 	this.approachWithMouse = function (mousePosition) {
 		if (transition) {
-			var t = transition.easeIn(mousePosition, center)
+			var t = transition.Desktop.easeIn(mousePosition, center)
+			if (children.paperAirplane)
+				children.paperAirplane.fly(t);
+			if (children.swivelChair)
+				children.swivelChair.swivel(t);
+		}
+	}
+
+	this.approachWithScroll = function (scrollPosition) {
+		if (transition && scrollPosition < scrollTarget) {
+			var t = transition.Mobile.easeIn(scrollPosition, scrollTarget);
 			if (children.paperAirplane)
 				children.paperAirplane.fly(t);
 			if (children.swivelChair)

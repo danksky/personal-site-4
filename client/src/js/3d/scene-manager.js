@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import {isMobile} from "react-device-detect";
+
 import Preload from '../../media/3D/complete-scene.json';
 import PreloadMobile from '../../media/3D/complete-scene-mobile.json';
 import NameConstructionSite from './scene-subjects/name-construction-site/name-construction-site.js';
@@ -84,7 +86,7 @@ export default function SceneManager(gameManager) {
 	function addSceneSubjects(scene) {
 		var loader = new THREE.ObjectLoader();
 		// Parse a previously loaded JSON structure
-		var sceneObject = loader.parse( Preload );
+		var sceneObject = loader.parse( isMobile ? PreloadMobile : Preload );
 		console.log(sceneObject);
 		scene.add( sceneObject );
 		camera = sceneObject.children[0];
@@ -205,6 +207,8 @@ export default function SceneManager(gameManager) {
 	};
 
 	this.onTouchMove = function ( event ) {
+		if (isMobile)
+			return;
 		// console.log('onTouchMove');
 		var rect = renderer.domElement.getBoundingClientRect();
 		mouse.prevPosition.x = mouse.position.x;
@@ -240,6 +244,15 @@ export default function SceneManager(gameManager) {
 		// sceneSubjects[1].state.dragging = false;
 	};
 
+	this.onScroll = function ( event ) {
+		if (!isMobile)
+			return;
+		var rect = renderer.domElement.getBoundingClientRect();
+		var scrollPosition = window.pageYOffset / rect.height;
+		sceneSubjects.forEach((sceneSubject) => {
+			sceneSubject.approachWithScroll(scrollPosition);
+		});
+	};
 
 	this.update = function() {
 		if (!clock) // init hasn't been run. 

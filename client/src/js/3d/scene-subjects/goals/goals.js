@@ -6,7 +6,8 @@ export default function Goals(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(0.62, 0.8);
-	var transition = null;
+	var scrollTarget = 0.55;
+	var transition = {};
 
 	this.state = {
 		dragging: false
@@ -25,7 +26,15 @@ export default function Goals(group) {
 
 	this.approachWithMouse = function (mousePosition) {
 		if (transition) {
-			var t = transition.easeIn(mousePosition, center)
+			var t = new transition.Desktop.easeIn(mousePosition, center)
+			if (children.archeryArrow)
+				children.archeryArrow.fly(t);
+		}
+	}
+
+	this.approachWithScroll = function (scrollPosition) {
+		if (transition && scrollPosition < scrollTarget) {
+			var t = transition.Mobile.easeIn(scrollPosition, scrollTarget);
 			if (children.archeryArrow)
 				children.archeryArrow.fly(t);
 		}

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import '../../stylesheets/App.css';
+import {isMobile} from "react-device-detect";
 import GameManager from '../3d/game-manager.js';
+
+import '../../stylesheets/App.css';
+
 
 const AnotherPage = () => <h1>Another Page</h1>;
 const NotFound = () => <h1>404 Not Found</h1>;
@@ -49,6 +52,36 @@ class Home extends Component {
 				<div style={{fontSize: "30px", position: "absolute", top: "100px", "textAlign": "center", margin: "auto", zIndex: -1}}>
 					My personal website is currently under construction. Please check back again soon, or contact me at <br/>[first . last @ gmail . com]
 				</div>
+				<header className="App-header">
+					<p>{this.state.response}</p>
+					<form onSubmit={this.handleSubmit}>
+						<p>
+							<strong>Post to Server:</strong>
+						</p>
+						<input
+							type="text"
+							value={this.state.post}
+							onChange={e => this.setState({ post: e.target.value })}
+						/>
+						<button type="submit">Submit</button>
+					</form>
+					<p>{this.state.responseToPost}</p>
+				</header>
+				<header className="App-header">
+					<p>{this.state.response}</p>
+					<form onSubmit={this.handleSubmit}>
+						<p>
+							<strong>Post to Server:</strong>
+						</p>
+						<input
+							type="text"
+							value={this.state.post}
+							onChange={e => this.setState({ post: e.target.value })}
+						/>
+						<button type="submit">Submit</button>
+					</form>
+					<p>{this.state.responseToPost}</p>
+				</header>
 				<header className="App-header">
 					<p>{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>

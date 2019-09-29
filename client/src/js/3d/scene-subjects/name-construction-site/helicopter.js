@@ -23,7 +23,7 @@ export default function Helicopter(child) {
 		blockW.material = blockW.material.clone();
 		originalPaintColor = blockW.material.color.clone();
 		dippedPaintColor = new THREE.Color(0x15aec6);
-		originalPosition = new THREE.Vector3(-0.5, 4, 2.25);
+		originalPosition = new THREE.Vector3(-0.5, 2, 2.25);
 		gameObject.position.copy(originalPosition);
 	}
 	this.init();

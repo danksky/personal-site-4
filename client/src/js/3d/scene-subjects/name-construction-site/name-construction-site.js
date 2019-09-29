@@ -1,12 +1,14 @@
 import * as THREE from "three";
 import Bumblebee from './bumblebee.js';
 import Helicopter from './helicopter.js';
-// import Transition from '../../utils/transition.js';
+import Transition from '../../utils/transition.js';
 
 export default function NameConstructionSite(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(0, 0);
+	var scrollTarget = 0.2;
+	var transition = null;
 
 	this.state = {
 		dragging: false
@@ -15,9 +17,10 @@ export default function NameConstructionSite(group) {
 	this.prevTime = -1;
 
 	this.init = function() {
-		if (group)
+		if (group) {
 			assignChildren();
-		else 
+			transition = new Transition();
+		} else 
 			console.warn("'group' is empty. Not assigning children to NameConstructionSite");
 	}
 	this.init();
@@ -26,6 +29,14 @@ export default function NameConstructionSite(group) {
 		var t = mousePosition.distanceTo(center)/2;
 		if (children.helicopter)
 			children.helicopter.fly(t);
+	}
+
+	this.approachWithScroll = function (scrollPosition) {
+		if (transition && scrollPosition < scrollTarget) {
+			var t = (scrollTarget - scrollPosition) * 2;
+			if (children.helicopter)
+				children.helicopter.fly(t);
+		}
 	}
 
 	function assignChildren () {
