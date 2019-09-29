@@ -7,7 +7,7 @@ export default function NameConstructionSite(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(0, 0);
-	var scrollTarget = 0.2;
+	var scrollTarget = 0.11;
 	var transition = null;
 
 	this.state = {
@@ -26,17 +26,14 @@ export default function NameConstructionSite(group) {
 	this.init();
 
 	this.approachWithMouse = function (mousePosition) {
-		var t = mousePosition.distanceTo(center)/2;
+		var t = mousePosition.distanceTo(center)/4;
 		if (children.helicopter)
 			children.helicopter.fly(t);
 	}
 
 	this.approachWithScroll = function (scrollPosition) {
-		if (transition && scrollPosition < scrollTarget) {
-			var t = (scrollTarget - scrollPosition) * 2;
-			if (children.helicopter)
-				children.helicopter.fly(t);
-		}
+		if (children.helicopter)
+			children.helicopter.fly(scrollPosition * 3);
 	}
 
 	function assignChildren () {

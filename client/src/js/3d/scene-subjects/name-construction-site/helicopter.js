@@ -29,7 +29,7 @@ export default function Helicopter(child) {
 	this.init();
 
 	this.fly = function (t) {
-		var y = 3 + Math.cos(t * 2 * Math.PI);
+		var y = 3 - Math.cos(t * 2 * Math.PI);
 		var newPosition = new THREE.Vector3(originalPosition.x, y, originalPosition.z);
 		gameObject.position.copy(newPosition);
 		if (t < 0.5 && this.state.stage !== 0) {

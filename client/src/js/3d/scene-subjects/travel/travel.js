@@ -38,10 +38,10 @@ export default function Travel(group) {
 
 	this.approachWithScroll = function (scrollPosition) {
 		if (transition) { // no inequality check bc of the t-0.3 below (stops around 0.2 from top)
-			var t = transition.Mobile.easeIn(scrollPosition-0.4, scrollTarget);
+			var t = transition.Mobile.easeIn(scrollPosition-0.15, scrollTarget);
 			if (children.airplaneLand)
 				children.airplaneLand.fly(t);
-			t = transition.Mobile.easeOut(scrollPosition-0.4, scrollTarget);
+			t = transition.Mobile.easeOut(scrollPosition-0.15, scrollTarget);
 			if (children.airplaneTakeoff)
 				children.airplaneTakeoff.fly(t);
 		}

@@ -15,12 +15,12 @@ export default function Transition () {
 		easeIn: function (scrollPosition, scrollTarget) {
 			// t will always be within [0,1]
 			var t = Math.abs(scrollTarget - scrollPosition);
-			return 1-Math.pow(t,1.25);
+			return 1-Math.pow(5*t,1.5);
 		},
 		easeOut: function (scrollPosition, scrollTarget) {
 			// t will always be within [0,1]
 			var t = Math.abs(scrollTarget - scrollPosition);
-			return Math.pow(t,-1.25);
+			return Math.pow(5*t,-1.5);
 		}
 	} 
 }

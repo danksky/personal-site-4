@@ -8,7 +8,7 @@ export default function Office(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(-0.6, 0.25);
-	var scrollTarget = 0.68;
+	var scrollTarget = 0.6;
 	var transition = null;
 
 	this.state = {

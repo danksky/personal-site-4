@@ -247,10 +247,12 @@ export default function SceneManager(gameManager) {
 	};
 
 	this.onScroll = function ( event ) {
+
 		if (!isMobile)
 			return;
 		var rect = renderer.domElement.getBoundingClientRect();
 		var scrollPosition = window.pageYOffset / rect.height;
+		console.log(scrollPosition);
 		sceneSubjects.forEach((sceneSubject) => {
 			sceneSubject.approachWithScroll(scrollPosition);
 		});
