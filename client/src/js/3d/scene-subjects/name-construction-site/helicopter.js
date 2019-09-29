@@ -3,8 +3,9 @@ import * as THREE from "three";
 export default function Helicopter(child) {
 
 	var gameObject = null;
+	var propeller = null;
 	var originalPosition = null;
-	
+
 	this.state = {
 		flying: false
 	};
@@ -13,6 +14,7 @@ export default function Helicopter(child) {
 
 	this.init = function() {
 		gameObject = child;
+		propeller = child.children[2];
 		originalPosition = new THREE.Vector3(-0.5, 4, 2.25);
 		gameObject.position.copy(originalPosition);
 	}
@@ -25,7 +27,8 @@ export default function Helicopter(child) {
 	
 	this.update = function(time) {
 		this.prevTime = time;
-		// this.fly(time);
+		
+		propeller.rotation.setFromVector3(new THREE.Vector3(0,time,0));
 	}
 
 	this.onWindowResize = function() {

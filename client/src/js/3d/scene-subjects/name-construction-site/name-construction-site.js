@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import Bumblebee from './bumblebee.js';
 import Helicopter from './helicopter.js';
+// import Transition from '../../utils/transition.js';
 
 export default function NameConstructionSite(group) {
 
@@ -20,12 +21,6 @@ export default function NameConstructionSite(group) {
 			console.warn("'group' is empty. Not assigning children to NameConstructionSite");
 	}
 	this.init();
-
-	this.easeIn = function (mousePosition) {
-		// t will always be within [0,1]
-		var t = mousePosition.distanceTo(center)/2;
-		return 1-Math.pow(t,3);
-	}
 
 	this.approachWithMouse = function (mousePosition) {
 		var t = mousePosition.distanceTo(center)/2;

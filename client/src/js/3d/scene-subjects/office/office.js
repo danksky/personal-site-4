@@ -2,11 +2,13 @@ import * as THREE from "three";
 import LaptopScreen from './laptop-screen.js';
 import PaperAirplane from './paper-airplane.js';
 import SwivelChair from './swivel-chair.js';
+import Transition from '../../utils/transition.js';
 
 export default function Office(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(-0.6, 0.25);
+	var transition = null;
 
 	this.state = {
 		dragging: false
@@ -15,25 +17,22 @@ export default function Office(group) {
 	this.prevTime = -1;
 
 	this.init = function() {
-		if (group)
+		if (group) {
 			assignChildren();
-		else 
+			transition = new Transition();
+		} else 
 			console.warn("'group' is empty. Not assigning children to Office");
 	}
 	this.init();
 
-	this.easeIn = function (mousePosition) {
-		// t will always be within [0,1]
-		var t = mousePosition.distanceTo(center)/2;
-		return 1-Math.pow(t,3);
-	}
-
 	this.approachWithMouse = function (mousePosition) {
-		var t = this.easeIn(mousePosition)
-		if (children.paperAirplane)
-			children.paperAirplane.fly(t);
-		if (children.swivelChair)
-			children.swivelChair.swivel(t);
+		if (transition) {
+			var t = transition.easeIn(mousePosition, center)
+			if (children.paperAirplane)
+				children.paperAirplane.fly(t);
+			if (children.swivelChair)
+				children.swivelChair.swivel(t);
+		}
 	}
 
 	function assignChildren () {
