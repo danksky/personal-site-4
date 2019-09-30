@@ -27,7 +27,7 @@ export default function SceneManager(gameManager) {
 		clock = new THREE.Clock();
 		screenDimensions = {
 			width: window.innerWidth,
-			height: window.innerHeight
+			height: window.innerHeight  * (isMobile ? 4 : 1)
 		};
 		console.log(screenDimensions);
 		scene = buildScene();
@@ -247,12 +247,10 @@ export default function SceneManager(gameManager) {
 	};
 
 	this.onScroll = function ( event ) {
-
 		if (!isMobile)
 			return;
 		var rect = renderer.domElement.getBoundingClientRect();
 		var scrollPosition = window.pageYOffset / rect.height;
-		console.log(scrollPosition);
 		sceneSubjects.forEach((sceneSubject) => {
 			sceneSubject.approachWithScroll(scrollPosition);
 		});
