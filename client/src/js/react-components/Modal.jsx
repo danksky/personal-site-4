@@ -21,7 +21,7 @@ function adjustTitle(objectName)  {
 		return "Travel";
 }
 
-function ModalContent(props) {
+function SubtopicsComponent(props) {
 	const objectName = props.objectName.toLowerCase();
 	const title = adjustTitle(props.objectName)
 	var SubtopicsComponent; 
@@ -33,13 +33,22 @@ function ModalContent(props) {
 
 	} else if (objectName === "hobby") {
 		SubtopicsComponent = Object.keys(ModalMap[title.toLowerCase()]).map(subtopic => {
-			return Object.entries(ModalMap[title.toLowerCase()][subtopic]).map(subtopicItemTuple => {
+			const SubtopicList = Object.entries(ModalMap[title.toLowerCase()][subtopic]).map(subtopicItemTuple => {
 				return (
 					<div className="listitem">
-						<div className="key">subtopicItemTuple[0]</div><div className="value"><a href={subtopicItemTuple[1].link}>{subtopicItemTuple[1].text}</a></div>
+						<div className="key">{subtopicItemTuple[0]}</div><div className="value"><a href={subtopicItemTuple[1].link}>{subtopicItemTuple[1].text}</a></div>
 					</div>
 				);
 			});
+			return (
+				<div className="Subtopic">
+					<div className="centerpiece-container">
+						<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+title.toLowerCase()+'.png')}/>
+					</div>
+					<div className="title">- {subtopic.toUpperCase()} -</div>
+					{SubtopicList}
+				</div>
+			);
 		});
 	} else if (objectName === "goals") {
 		
@@ -49,15 +58,7 @@ function ModalContent(props) {
 		
 	}
 
-	return (
-		<div className="Subtopic">
-			<div className="centerpiece-container">
-				<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+title.toLowerCase()+'.png')}/>
-			</div>
-			<div className="subtopic">- {props.objectName.toUpperCase()} -</div>
-			{SubtopicsComponent}
-		</div>
-	);
+	return SubtopicsComponent;
 }
 
 export default class Modal extends Component {
@@ -80,7 +81,7 @@ export default class Modal extends Component {
 					<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+this.state.title.toLowerCase()+'.png')}/>
 				</div>
 				<div className="title">{this.state.title}</div>
-				<ModalContent objectName={this.props.objectName}></ModalContent>
+				<SubtopicsComponent objectName={this.props.objectName}></SubtopicsComponent>
 			</div>
 		);
 	}
