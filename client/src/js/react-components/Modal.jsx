@@ -3,10 +3,69 @@ import {isMobile} from "react-device-detect";
 
 import '../../stylesheets/Modal.css';
 
+function adjustTitle(objectName)  {
+	objectName = objectName.toLowerCase();
+	if (objectName === "bumblee" || objectName === "beehive") 
+		return "Beekeeping";
+	 else if (objectName === "bulldozer" || objectName === "cone") 
+		return "Construction";
+	 else if (objectName === "mailbox") 
+		return "Contact";
+	 else if (objectName === "hobby") 
+		return "Hobbies";
+	 else if (objectName === "goals") 
+		return "Goals";
+	 else if (objectName === "work") 
+		return "Work";
+	 else if (objectName === "travel") 
+		return "Travel";
+}
+
+function ModalContent(props) {
+	const objectName = props.objectName.toLowerCase();
+	const title = adjustTitle(props.objectName)
+	var SubtopicsComponent; 
+	if (objectName === "bumblee" || objectName === "beehive") {
+
+	} else if (objectName === "bulldozer" || objectName === "cone") {
+
+	} else if (objectName === "mailbox") {
+
+	} else if (objectName === "hobby") {
+		SubtopicsComponent = Object.keys(ModalMap[title.toLowerCase()]).map(subtopic => {
+			return Object.entries(ModalMap[title.toLowerCase()][subtopic]).map(subtopicItemTuple => {
+				return (
+					<div className="listitem">
+						<div className="key">subtopicItemTuple[0]</div><div className="value"><a href={subtopicItemTuple[1].link}>{subtopicItemTuple[1].text}</a></div>
+					</div>
+				);
+			});
+		});
+	} else if (objectName === "goals") {
+		
+	} else if (objectName === "work") {
+		
+	} else if (objectName === "travel") {
+		
+	}
+
+	return (
+		<div className="Subtopic">
+			<div className="centerpiece-container">
+				<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+title.toLowerCase()+'.png')}/>
+			</div>
+			<div className="subtopic">- {props.objectName.toUpperCase()} -</div>
+			{SubtopicsComponent}
+		</div>
+	);
+}
+
 export default class Modal extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {}
+		this.state = {
+			title: adjustTitle(this.props.objectName)
+		}
 	}
 
 	componentDidMount() {
@@ -17,80 +76,75 @@ export default class Modal extends Component {
 		return (
 			<div className="Modal">
 				<img className="x" alt="close button" src={require('../../media/2D/x-close.png')} />
-				<div className="centerpiece-container"><img className="centerpiece" src={ModalContent.centerpiecePaths(this.props.title)}/></div>
-				<div className="title">{this.props.title.toUpperCase()}</div>
-				<br/><br/>
-				<div className="subtitle">- {this.props.title.toUpperCase()} -</div>
-				<div className="list-item">
-					<div className="key">Favorite</div><div className="value">Melee</div>
+				<div className="centerpiece-container">
+					<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+this.state.title.toLowerCase()+'.png')}/>
 				</div>
+				<div className="title">{this.state.title}</div>
+				<ModalContent objectName={this.props.objectName}></ModalContent>
 			</div>
 		);
 	}
 }
 
-const ModalContent = {
-	centerpiecePaths: function(title) {
-		return require(`../../media/2D/${title}.png`);
-	},
-	contentLists: {
-		hobbies: {
-			surf: {
-				skill: {
-					value: "2",
-					link: "https://surfsimply.com/what-level-surfer-are-you/"
-				},
-				home: {
-					value: "El Porto",
-					link: "https://goo.gl/maps/D3rEVcj4ZSr1uTeZA"
-				}
+
+
+const ModalMap = {
+	hobbies: {
+		surf: {
+			skill: {
+				text: "2",
+				link: "https://surfsimply.com/what-level-surfer-are-you/"
 			},
-			bike: {
-				model: {
-					value: "Nishiki Anasazi",
-					link: "https://www.dickssportinggoods.com/p/nishiki-mens-anasazi-hybrid-bike-16nisanshknsz15xxdsb/16nisanshknsz15xxdsb"
-				}
-			},
-			joke: {
-				shows: {
-					value: "none",
-					link: "/"
-				}
-			},
-			play: {
-				favorite: {
-					value: "Melee",
-					link: "https://www.ssbwiki.com/Peach_(SSBM)"
-				}
-			}, 
-			bee: {
-				company: {
-					value: "none",
-					link: "none"
-				}
+			home: {
+				text: "El Porto",
+				link: "https://goo.gl/maps/D3rEVcj4ZSr1uTeZA"
 			}
 		},
-		goals: {
-			read: {
-				"My Life in My Words": 1,
-				"TODO": 0
-			},
-			lift: {
-				"bench 225": 0.2
-			},
-			develop: {
-				"this website": 0.2
+		bike: {
+			model: {
+				text: "Nishiki Anasazi",
+				link: "https://www.dickssportinggoods.com/p/nishiki-mens-anasazi-hybrid-bike-16nisanshknsz15xxdsb/16nisanshknsz15xxdsb"
 			}
 		},
-		work: {
-			ibm: "https://www.ibm.com/cloud", //☁️
-			lat: "https://www.latimes.com/projects/", //🍔
-			spacex:"https://www.spacex.com/news", //🚀
-			ict: "http://ict.usc.edu/" //🥽
+		joke: {
+			shows: {
+				text: "none",
+				link: "/"
+			}
+		},
+		play: {
+			favorite: {
+				text: "Melee",
+				link: "https://www.ssbwiki.com/Peach_(SSBM)"
+			}
 		}, 
-		travel: {
-			countries: ["South Africa", "New Zealand", "India", "Isreal", "Cuba", "China", "Vietnam", "Australia", "United Arab Emirates", "Great Britain", "Mexico", "Jamaica"],
-			vlogs: []
+		bee: {
+			company: {
+				text: "none",
+				link: "none"
+			}
 		}
+	},
+	goals: {
+		read: {
+			"My Life in My Words": 1,
+			"TODO": 0
+		},
+		lift: {
+			"bench 225": 0.2
+		},
+		develop: {
+			"this website": 0.2
+		}
+	},
+	work: {
+		ibm: "https://www.ibm.com/cloud", //☁️
+		lat: "https://www.latimes.com/projects/", //🍔
+		spacex:"https://www.spacex.com/news", //🚀
+		ict: "http://ict.usc.edu/" //🥽
+	}, 
+	travel: {
+		countries: ["South Africa", "New Zealand", "India", "Isreal", "Cuba", "China", "Vietnam", "Australia", "United Arab Emirates", "Great Britain", "Mexico", "Jamaica"],
+		vlogs: []
 	}
 }

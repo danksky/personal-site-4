@@ -58,13 +58,8 @@ class Home extends Component {
 				<div className="rendererDOMElement" ref={ref => (this.mount = ref)}></div>
 				<div className="menu">
 					<div className="menu-title">DANIEL KAWALSKY</div>
-					<div className="button" id="menu-button-contact">CONTACT</div>
-					<div className="button" id="menu-button-why">WHY</div>
-					<div className="button" id="menu-button-hobbies">HOBBIES</div>
-					<div className="button" id="menu-button-goals">GOALS</div>
-					<div className="button" id="menu-button-work">WORK</div>
-					<div className="button" id="menu-button-travel">TRAVEL</div>
 				</div>
+				<Modal objectName="Hobby"></Modal>
 				<header className="App-header">
 					<p>DROP A LINE{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
@@ -108,5 +103,3 @@ const App = () => (
 );
 
 export default App;
-
-// <Modal title="hello"></Modal>
