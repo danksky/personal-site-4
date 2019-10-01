@@ -48,10 +48,14 @@ class Home extends Component {
 		this.setState({ responseToPost: body });
 	};
 
+	handleCollisionEvent(objectName) {
+		console.log(objectName);
+	}
+
 	render() {
 		return (
 			<div className="App">
-				<div className="rendererDOMElement" style={{ "height": isMobile ? "400%" : "100%", width: "100%"}} ref={ref => (this.mount = ref)}></div>
+				<div className="rendererDOMElement" ref={ref => (this.mount = ref)}></div>
 				<div className="menu">
 					<div className="menu-title">DANIEL KAWALSKY</div>
 					<div className="button" id="menu-button-contact">CONTACT</div>
@@ -60,10 +64,9 @@ class Home extends Component {
 					<div className="button" id="menu-button-goals">GOALS</div>
 					<div className="button" id="menu-button-work">WORK</div>
 					<div className="button" id="menu-button-travel">TRAVEL</div>
-					<Modal title="hello"></Modal>
 				</div>
 				<header className="App-header">
-					<p>{this.state.response}</p>
+					<p>DROP A LINE{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
 						<p>
 							<strong>Post to Server:</strong>
@@ -105,3 +108,5 @@ const App = () => (
 );
 
 export default App;
+
+// <Modal title="hello"></Modal>

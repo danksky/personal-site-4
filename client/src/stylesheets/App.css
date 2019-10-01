@@ -67,26 +67,23 @@
 }
 .button#menu-button-contact {
   left: 10vw;
-  top: 85vh;
+  top: 68%;
 }
 .button#menu-button-why {
   left: 60.2vw;
-  top: 85vh;
+  top: 68%;
 }
 .button#menu-button-hobbies {
-  top: 145vh;
-}
-.button#menu-button-hobbies {
-  top: 145vh;
+  top: 132vh;
 }
 .button#menu-button-goals {
-  top: 215vh;
+  top: 202vh;
 }
 .button#menu-button-work {
-  top: 292vh;
+  top: 282vh;
 }
 .button#menu-button-travel {
-  top: 365vh;
+  top: 356vh;
 }
 
 .button:hover {

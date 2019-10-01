@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import {isMobile} from "react-device-detect";
+import {isMobile, isDesktop, isAndroid} from "react-device-detect";
 
 import Preload from '../../media/3D/complete-scene.json';
 import PreloadMobile from '../../media/3D/complete-scene-mobile.json';
@@ -27,7 +27,7 @@ export default function SceneManager(gameManager) {
 		clock = new THREE.Clock();
 		screenDimensions = {
 			width: window.innerWidth,
-			height: window.innerHeight  * (isMobile ? 4 : 1)
+			height: window.innerHeight * (isMobile ? 4 : 1)
 		};
 		console.log(screenDimensions);
 		scene = buildScene();
@@ -57,9 +57,8 @@ export default function SceneManager(gameManager) {
 	function buildRender({ width, height }) {
 		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
 		const DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
-		renderer.setPixelRatio(DPR);
+		renderer.setPixelRatio(isAndroid ? 1 : DPR);
 		renderer.setSize(width, height);
-
 		renderer.gammaInput = true;
 		renderer.shadowMap.enabled = true;
 		renderer.gammaFactor = 2.2;
@@ -78,7 +77,6 @@ export default function SceneManager(gameManager) {
 		const nearPlane = 1;
 		const farPlane = 1000; 
 		const camera = new THREE.OrthographicCamera(left, right, top, bottom, nearPlane, farPlane);
-		// camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 		camera.position.z = 100;
 		return camera;
 	}
@@ -100,6 +98,34 @@ export default function SceneManager(gameManager) {
 		return sceneSubjects;
 	}
 
+	// onRaycast - handle the event of a raycast collision
+	function onRaycast(intersects) {
+		const handlers = {
+			"Bumblebee": true,
+			"Beehive": true,
+			"Bulldozer": true,
+			"Cone": true,
+			"mailbox": true,
+			"Hobby": true,
+			"Goals": true,
+			"Office": true,
+			"Travel": true,
+		};
+
+		// check if any of the intersected elements or (recursively) their parents have an associated handler
+		for ( var i = 0; i < intersects.length; i++ ) {
+			var object = intersects[i].object;
+			while (object.parent) {
+				if (handlers[object.name]) {
+					gameManager.handleCollisionEvent(object.name);
+					return;
+				}
+				object = object.parent;
+			}
+		}
+		// do nothing
+	}
+
 	this.onMouseDown = function (event) {
 		console.log('onMouseDown');
 		mouse.down = true;
@@ -114,20 +140,7 @@ export default function SceneManager(gameManager) {
 		console.log(mouse.position.x, mouse.position.y);
 
 		raycaster.setFromCamera( mouse.position, camera );
-		var intersects = raycaster.intersectObjects( scene.children, true );
-
-		for ( var i = 0; i < intersects.length; i++ ) {
-			// console.log(intersects[ i ]);
-			if (intersects[i].object.domain === "Burger") {
-				console.log("Cicked the burger");
-				// sceneSubjects[1].state.dragging = true;
-			}  
-			if (intersects[i].object.domain === "Letter") {
-				// sceneSubjects[2].setLetterSpinning(clock.getElapsedTime(), intersects[i]);
-			} else {
-
-			}
-		}
+		onRaycast(raycaster.intersectObjects( scene.children, true ));
 	};
 
 	this.onMouseUp = function (event) {
@@ -183,7 +196,6 @@ export default function SceneManager(gameManager) {
 		console.log('onTouchStart');
 		mouse.down = true;
 		mouse.over = true;
-		console.log(event);
 
 		var rect = renderer.domElement.getBoundingClientRect();
 		mouse.prevPosition.x = mouse.position.x;
@@ -192,62 +204,24 @@ export default function SceneManager(gameManager) {
 		mouse.position.y = - ( ( event.targetTouches[0].clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
 
 		raycaster.setFromCamera( mouse.position, camera );
-		var intersects = raycaster.intersectObjects( scene.children, true );
-
-		for ( var i = 0; i < intersects.length; i++ ) {
-			// console.log(intersects[ i ]);
-			if (intersects[i].object.domain === "Burger") {
-				// console.log("Touched the burger");
-				// sceneSubjects[1].state.dragging = true;
-			}  
-			if (intersects[i].object.domain === "Letter") {
-				// sceneSubjects[2].setLetterSpinning(clock.getElapsedTime(), intersects[i]);
-			} else {
-
-			}
-		}
+		onRaycast(raycaster.intersectObjects( scene.children, true ));
 	};
 
 	this.onTouchMove = function ( event ) {
+		// Could interfere with scroll interaction
 		if (isMobile)
 			return;
-		// console.log('onTouchMove');
-		var rect = renderer.domElement.getBoundingClientRect();
-		mouse.prevPosition.x = mouse.position.x;
-		mouse.prevPosition.y = mouse.position.y;
-		mouse.position.x = ( ( event.targetTouches[0].clientX - rect.left ) / ( rect.width - rect.left ) ) * 2 - 1;
-		mouse.position.y = - ( ( event.targetTouches[0].clientY - rect.top ) / ( rect.bottom - rect.top) ) * 2 + 1;
-		// Doesn't make sense to put this in the raycast after already activated. 
-		// if (sceneSubjects[1].state.dragging) {
-			// event.preventDefault();
-			// sceneSubjects[1].drag((mouse.position.x - mouse.prevPosition.x) * 4);
-		// }  
-
-		console.log(mouse.position);
-		// update the picking ray with the camera and mouse position
-		raycaster.setFromCamera( mouse.position, camera );
-		var intersects = raycaster.intersectObjects( scene.children, true );
-		// console.log(intersects);
-		for ( var i = 0; i < intersects.length; i++ ) {
-			// console.log(intersects[ i ]);
-			if (intersects[i].object.domain === "Letter") {
-				// sceneSubjects[2].setLetterSpinning(clock.getElapsedTime(), intersects[i]);
-			} else {
-				
-			}
-		}
 	};
 
 	this.onTouchEnd = function ( event ) {
 		console.log('onTouchEnd');
 		mouse.down = false;
 		mouse.over = false;
-		
-		// sceneSubjects[1].state.dragging = false;
 	};
 
 	this.onScroll = function ( event ) {
-		if (!isMobile)
+		// Desktop doesn't interact with scroll interaction on the desktop 
+		if (isDesktop)
 			return;
 		var rect = renderer.domElement.getBoundingClientRect();
 		var scrollPosition = window.pageYOffset / rect.height;
