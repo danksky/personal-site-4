@@ -47,8 +47,8 @@ function TopicComponent(props) {
 				if (topic === "Hobbies") {
 					DetailComponent = (
 						<div className="detail">
-							<div className="detail-name">{detailsName}</div>
-							<div className="detail-value"><a className="detail-link" href={Detail.link}>🔗 {Detail.text}</a></div>
+							<div className="detail-name">{detailsName} 🔗</div>
+							<div className="detail-value"><a className="detail-link" href={Detail.link}>{Detail.text}</a></div>
 						</div>
 					);
 				} else if (topic === "Goals") {
@@ -61,13 +61,15 @@ function TopicComponent(props) {
 				} else if (topic === "Work") {
 					DetailComponent = (
 						<div className="detail">
-							<div className="detail-name">{detailsName}</div>
+							<div className="detail-name">{detailsName} 🔗</div>
+							<div className="detail-value"><a className="detail-link" href={Detail.link}>{Detail.text}</a></div>
 						</div>
 					);
 				} else if (topic === "Travel") {
 					DetailComponent = (
 						<div className="detail">
-							<div className="detail-name">{detailsName}</div>
+							<div className="detail-name">Days</div>
+							<div className="detail-value">{Detail}</div>
 						</div>
 					);
 				} 
@@ -205,29 +207,87 @@ const ModalMap = {
 		image: "Office.png",
 		ibm: {
 			image: "ibm.png",
-			name: "ibm ☁️",
-			link:"https://www.ibm.com/cloud",
+			company: {
+				text: "ibm ☁️",
+				link:"https://www.ibm.com/cloud",
+			}
 		},
 		lat: {
-			image: "burger.png",
-			name: "lat 🍔",
-			link: "https://www.latimes.com/projects/",
+			image: "cheeseburger.png",
+			company: {
+				text: "los angeles times 🍔",
+				link: "https://www.latimes.com/projects/",
+			}
 		},
 		spacex: {
 			image: "shuttle.png",
-			name: "spacex 🚀",
-			link: "https://www.spacex.com/news",
+			company: {
+				text: "spacex 🚀",
+				link: "https://www.spacex.com/news",
+			}
 		},
 		ict: {
 			image: "vr.png",
-			name: "ict 🥽",
-			link: "http://ict.usc.edu/"
+			company: {
+				text: "usc institute of creative technology 🥽",
+				link: "http://ict.usc.edu/"
+			}
 		},
 	}, 
 	Travel: {
 		image: "plane.png",
-		countries: ["South Africa", "New Zealand", "India", "Isreal", "Cuba", "China", "Vietnam", "Australia", "United Arab Emirates", "Great Britain", "Mexico", "Jamaica"],
-		vlogs: []
+		"South Africa": {
+			image: "za.svg",
+			duration: 200
+		},
+		"New Zealand": {
+			image: "nz.svg",
+			duration: 125
+		},
+		"India": {
+			image: "in.svg",
+			duration: 24
+		},
+		"Israel": {
+			image: "il.svg",
+			duration: 23
+		},
+		"Cuba": {
+			image: "cu.svg",
+			duration: 16
+		},
+		"China": {
+			image: "cn.svg",
+			duration: 16
+		},
+		"Vietnam": {
+			image: "vn.svg",
+			duration: 10
+		},
+		"Australia": {
+			image: "au.svg",
+			duration: 8
+		},
+		"Hong Kong": {
+			image: "hk.svg",
+			duration: 1
+		},
+		"Great Britain": {
+			image: "gb.svg",
+			duration: 1
+		},
+		"United Arab Emirates": {
+			image: "ae.svg",
+			duration: 0.5
+		},
+		"Mexico": {
+			image: "mx.svg",
+			duration: 0.5
+		},
+		"Jamaica": {
+			image: "jm.svg",
+			duration: 0.5
+		},
 	},
 }
 

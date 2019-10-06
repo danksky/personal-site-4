@@ -69,6 +69,7 @@
 	margin-left: 5%;
 	text-align: right;
 	color: #AAA;
+	vertical-align: top;
 }
 
 .Modal .subtopic .detail .detail-value {
@@ -76,6 +77,8 @@
 	font-size: 4.5vw;
 	width: 45%;
 	margin-left: 2%;
+	color: black;
+	font-weight: bold;
 }
 
 .Modal .subtopic .detail .detail-value a:hover,
@@ -84,7 +87,6 @@
 .Modal .subtopic .detail .detail-value a:visited {
 	text-decoration: none;
 	color: black;
-	font-weight: bold;
 	cursor: pointer;
 }
 

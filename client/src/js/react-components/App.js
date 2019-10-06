@@ -59,6 +59,8 @@ class Home extends Component {
 				<div className="rendererDOMElement" ref={ref => (this.mount = ref)}></div>
 				<Modal objectName="Hobby"></Modal>
 				<Modal objectName="Goals"></Modal>
+				<Modal objectName="Work"></Modal>
+				<Modal objectName="Travel"></Modal>
 				<header className="App-header">
 					<p>DROP A LINE{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
