@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {isMobile} from "react-device-detect";
 
+import { Line, Circle } from 'rc-progress';
+
 import '../../stylesheets/Modal.css';
 
-function adjustTitle(objectName)  {
+function tapToTopic(objectName)  {
 	objectName = objectName.toLowerCase();
 	if (objectName === "bumblee" || objectName === "beehive") 
-		return "Beekeeping";
+		return "Hobbies";
 	 else if (objectName === "bulldozer" || objectName === "cone") 
 		return "Construction";
 	 else if (objectName === "mailbox") 
@@ -21,51 +23,79 @@ function adjustTitle(objectName)  {
 		return "Travel";
 }
 
-function SubtopicsComponent(props) {
-	const objectName = props.objectName.toLowerCase();
-	const title = adjustTitle(props.objectName)
-	var SubtopicsComponent; 
-	if (objectName === "bumblee" || objectName === "beehive") {
+function TopicComponent(props) {
+	const topic = tapToTopic(props.objectName)
+	var TopicComponent; 
+	if (topic === "Construction") {
+		
+	} else if (topic === "Contact") {
 
-	} else if (objectName === "bulldozer" || objectName === "cone") {
-
-	} else if (objectName === "mailbox") {
-
-	} else if (objectName === "hobby") {
-		SubtopicsComponent = Object.keys(ModalMap[title.toLowerCase()]).map(subtopic => {
-			const SubtopicList = Object.entries(ModalMap[title.toLowerCase()][subtopic]).map(subtopicItemTuple => {
-				return (
-					<div className="listitem">
-						<div className="key">{subtopicItemTuple[0]}</div><div className="value"><a href={subtopicItemTuple[1].link}>{subtopicItemTuple[1].text}</a></div>
-					</div>
-				);
+	} else {
+		var Topic = ModalMap[topic];
+		var subtopicListNames= Object.keys(Topic);
+		var SubtopicListComponent = subtopicListNames.map(subtopicName => {
+			if (subtopicName === "image")
+				return null;
+			var Subtopic = Topic[subtopicName];
+			var detailsSubtopicNames = Object.keys(Subtopic);
+			var DetailsSubtopicComponent = detailsSubtopicNames.map(detailsName => {
+				if (detailsName === "image")
+					return null;
+				// Details format varies from Topic to Topic
+				var Detail = Subtopic[detailsName];
+				var DetailComponent;
+				if (topic === "Hobbies") {
+					DetailComponent = (
+						<div className="detail">
+							<div className="detail-name">{detailsName}</div>
+							<div className="detail-value"><a className="detail-link" href={Detail.link}>🔗 {Detail.text}</a></div>
+						</div>
+					);
+				} else if (topic === "Goals") {
+					DetailComponent = (
+						<div className="detail">
+							<div className="detail-name">{detailsName}</div>
+							<Line percent={Detail.current/Detail.target*100} strokeWidth="4" strokeColor="lightblue" style={{width: "90vw", marginLeft: "4.5vw"}} />
+						</div>
+					);
+				} else if (topic === "Work") {
+					DetailComponent = (
+						<div className="detail">
+							<div className="detail-name">{detailsName}</div>
+						</div>
+					);
+				} else if (topic === "Travel") {
+					DetailComponent = (
+						<div className="detail">
+							<div className="detail-name">{detailsName}</div>
+						</div>
+					);
+				} 
+				return DetailComponent;
 			});
-			return (
-				<div className="Subtopic">
-					<div className="centerpiece-container">
-						<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+title.toLowerCase()+'.png')}/>
+			var SubtopicComonent = (
+				<div className="subtopic">
+					<div className="subtopic-centerpiece-container">
+						<img className="subtopic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+Subtopic.image)}/>
 					</div>
-					<div className="title">- {subtopic.toUpperCase()} -</div>
-					{SubtopicList}
+					<div className="subtopic-title">{subtopicName}</div>
+					{DetailsSubtopicComponent}
+					<div className="subtopic-separator"></div>
 				</div>
 			);
+			return SubtopicComonent;
 		});
-	} else if (objectName === "goals") {
-		
-	} else if (objectName === "work") {
-		
-	} else if (objectName === "travel") {
-		
+		return SubtopicListComponent;
 	}
-
-	return SubtopicsComponent;
+	
+	return TopicComponent;
 }
 
 export default class Modal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			title: adjustTitle(this.props.objectName)
+			topic: tapToTopic(this.props.objectName)
 		}
 	}
 
@@ -77,11 +107,11 @@ export default class Modal extends Component {
 		return (
 			<div className="Modal">
 				<img className="x" alt="close button" src={require('../../media/2D/x-close.png')} />
-				<div className="centerpiece-container">
-					<img className="centerpiece" alt="modal graphic" src={require('../../media/2D/'+this.state.title.toLowerCase()+'.png')}/>
+				<div className="topic-centerpiece-container">
+					<img className="topic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+ModalMap[this.state.topic].image)}/>
 				</div>
-				<div className="title">{this.state.title}</div>
-				<SubtopicsComponent objectName={this.props.objectName}></SubtopicsComponent>
+				<div className="topic-title">{this.state.topic}</div>
+				<TopicComponent objectName={this.props.objectName}></TopicComponent>
 			</div>
 		);
 	}
@@ -90,8 +120,16 @@ export default class Modal extends Component {
 
 
 const ModalMap = {
-	hobbies: {
+	Construction: {
+
+	},
+	Contact: {
+
+	},
+	Hobbies: {
+		image: "hobbies.png",
 		surf: {
+			image: "surfboard.png",
 			skill: {
 				text: "2",
 				link: "https://surfsimply.com/what-level-surfer-are-you/"
@@ -102,50 +140,108 @@ const ModalMap = {
 			}
 		},
 		bike: {
+			image: "bike.png",
 			model: {
 				text: "Nishiki Anasazi",
 				link: "https://www.dickssportinggoods.com/p/nishiki-mens-anasazi-hybrid-bike-16nisanshknsz15xxdsb/16nisanshknsz15xxdsb"
 			}
 		},
 		joke: {
+			image: "microphone.png",
 			shows: {
 				text: "none",
 				link: "/"
 			}
 		},
 		play: {
+			image: "sword.png",
 			favorite: {
 				text: "Melee",
 				link: "https://www.ssbwiki.com/Peach_(SSBM)"
 			}
 		}, 
 		bee: {
+			image: "honeybee.png",
 			company: {
 				text: "none",
 				link: "none"
 			}
 		}
 	},
-	goals: {
+	Goals: {
+		image: "goals.png",
 		read: {
-			"My Life in My Words": 1,
-			"TODO": 0
+			image: "books.png",
+			books: {
+				current: 2,
+				target: 5,
+				// completed: ["Austerlitz", "My Life in My Words", "Factfulness"]
+			},
 		},
 		lift: {
-			"bench 225": 0.2
+			image: "barbell.png",
+			"bench": {
+				current: 185,
+				target: 225
+			},
+			"squat": {
+				current: 225,
+				target: 315
+			},
+			"deadlift": {
+				current: 245,
+				target: 315
+			},
 		},
 		develop: {
-			"this website": 0.2
+			image: "laptop.png",
+			"website": {
+				current: 50,
+				target: 60
+			},
 		}
 	},
-	work: {
-		ibm: "https://www.ibm.com/cloud", //☁️
-		lat: "https://www.latimes.com/projects/", //🍔
-		spacex:"https://www.spacex.com/news", //🚀
-		ict: "http://ict.usc.edu/" //🥽
+	Work: {
+		image: "Office.png",
+		ibm: {
+			image: "ibm.png",
+			name: "ibm ☁️",
+			link:"https://www.ibm.com/cloud",
+		},
+		lat: {
+			image: "burger.png",
+			name: "lat 🍔",
+			link: "https://www.latimes.com/projects/",
+		},
+		spacex: {
+			image: "shuttle.png",
+			name: "spacex 🚀",
+			link: "https://www.spacex.com/news",
+		},
+		ict: {
+			image: "vr.png",
+			name: "ict 🥽",
+			link: "http://ict.usc.edu/"
+		},
 	}, 
-	travel: {
+	Travel: {
+		image: "plane.png",
 		countries: ["South Africa", "New Zealand", "India", "Isreal", "Cuba", "China", "Vietnam", "Australia", "United Arab Emirates", "Great Britain", "Mexico", "Jamaica"],
 		vlogs: []
-	}
+	},
 }
+
+
+
+// modals:
+/*
+
+constructoin
+contact
+hobbies
+work
+travel
+goals
+bees --> hobbies
+
+*/

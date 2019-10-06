@@ -23,7 +23,7 @@
 
 }
 
-.menu-title {
+.title {
   position: absolute;
   width: 50vw;
   top: 15vh;
@@ -42,7 +42,7 @@
   user-select: none; /* Standard */
   z-index: 1;
 }
-.menu-title:hover {
+.title:hover {
   border: 3px #222 solid;
   background-color: #222;
 }

@@ -1,9 +1,9 @@
 .Modal {
 	width: calc(100vw - 12px);
-	height: calc(100vh - 12px);
 	border: 6px black solid;
 	background-color: white;
 	overflow-y: hidden;
+	overflow-x: hidden;
 }
 
 .Modal .x {
@@ -18,46 +18,83 @@
 	cursor: pointer;
 }
 
-.Modal .centerpiece-container {
-	width: 30vw;
-	height: 30vw;
+
+.Modal .topic-centerpiece-container {
+	width: 85vw;
+	height: 85vw;
 	margin: auto;
+	border: 1px solid #CCC;
 }
 
-.Modal .centerpiece-container img {
+.Modal .topic-centerpiece-container img {
 	width: 100%;
 	height: 100%;
 }
 
-.Modal .title {
-	position: relative;
+.Modal .topic-title {
 	top: 5vh;
 	font-size: 10vw;
 	font-weight: bold;
 	text-decoration: underline;
-	width: 100%;
 	text-align: center;
+	margin-top: 15vh;
+	margin-bottom: 15vh;
 }
 
-.Modal .Subtopic .title {
+.Modal .subtopic .subtopic-title {
 	font-size: 7vw;
 	font-weight: bold;
 	font-style: italic;
 	width: 100%;
 	text-align: center;
+	margin-bottom: 3vh;
 }
 
-.Modal .Subtopic .listitem .key {
+.Modal .subtopic .subtopic-centerpiece-container {
+	width: 30vw;
+	height: 30vw;
+	margin: auto;
+}
+
+.Modal .subtopic .subtopic-centerpiece-container img {
+	width: 100%;
+	height: 100%;
+}
+
+.Modal .subtopic .detail .detail-name {
 	display: inline-block;
-	font-size: 6vw;
+	font-size: 4.5vw;
 	font-weight: bold;
 	width: 30%;
 	margin-left: 5%;
+	text-align: right;
+	color: #AAA;
 }
 
-.Modal .Subtopic .listitem .value {
+.Modal .subtopic .detail .detail-value {
 	display: inline-block;
-	font-size: 6vw;
+	font-size: 4.5vw;
 	width: 45%;
 	margin-left: 2%;
 }
+
+.Modal .subtopic .detail .detail-value a:hover,
+.Modal .subtopic .detail .detail-value a:link,
+.Modal .subtopic .detail .detail-value a:active,
+.Modal .subtopic .detail .detail-value a:visited {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.Modal .subtopic .subtopic-separator {
+	width: 80%;
+	margin: auto;
+	height: 1px;
+	background-color: #CCC;
+	margin-top: 3vh;
+}
+
+
+
