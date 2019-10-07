@@ -109,6 +109,7 @@ export default function SceneManager(gameManager) {
 			"Goals": true,
 			"Office": true,
 			"Travel": true,
+			"Daniel Kawalsky": true,
 		};
 
 		// check if any of the intersected elements or (recursively) their parents have an associated handler

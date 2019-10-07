@@ -9,11 +9,19 @@ import '../../stylesheets/App.css';
 import '../../stylesheets/Landscape.css';
 
 class Home extends Component {
-	state = {
-		response: '',
-		post: '',
-		responseToPost: '',
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			response: '',
+			post: '',
+			responseToPost: '',
+			selected: null,
+			scrollPosition: 0
+		};
+		this.handleCollisionEvent = this.handleCollisionEvent.bind(this);
+		this.closeModal = this.closeModal.bind(this);
+		
+	}
 
 	componentDidMount() {
 		this.callApi()
@@ -46,14 +54,31 @@ class Home extends Component {
 
 	handleCollisionEvent(objectName) {
 		console.log(objectName);
+		this.setState({
+			selected: objectName,
+			scrollPosition: window.scrollY
+		})
+
+		document.body.style.position = 'fixed';
+		
+	}
+
+	closeModal() {
+		this.setState({
+			selected: null,
+		});
+		// When the modal is hidden... we have to retrieve the scroll position.
+		
+		document.body.style.position = '';
+		window.scrollTo(0, this.state.scrollPosition)
 	}
 
 	render() {
 		return (
 			<div className="App">
 				<div className="title">DANIEL KAWALSKY</div>
-				<Game></Game>
-				<Modal objectName="Credits"></Modal>
+				<Game handler={this.handleCollisionEvent}></Game>
+				<Modal topic={this.state.selected} closer={this.closeModal}></Modal>
 				<header className="App-header">
 					<p>DROP A LINE{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>

@@ -7,29 +7,30 @@ import {credits} from './Credits.js';
 import '../../stylesheets/Modal.css';
 
 function tapToTopic(objectName)  {
-	objectName = objectName.toLowerCase();
-	if (objectName === "bumblee" || objectName === "beehive") 
-		return "Hobbies";
-	else if (objectName === "bulldozer" || objectName === "cone") 
-		return "Construction";
-	else if (objectName === "mailbox") 
-		return "Contact";
-	else if (objectName === "hobby") 
-		return "Hobbies";
-	else if (objectName === "goals") 
-		return "Goals";
-	else if (objectName === "work") 
-		return "Work";
-	else if (objectName === "travel") 
-		return "Travel";
-	else if (objectName === "credits") 
-		return "Credits"
+	if (objectName) {
+		objectName = objectName.toLowerCase();
+		if (objectName === "bulldozer" || objectName === "cone") 
+			return "Construction";
+		else if (objectName === "mailbox") 
+			return "Contact";
+		else if (objectName === "hobby" || objectName === "bumblee" || objectName === "beehive") 
+			return "Hobbies";
+		else if (objectName === "goals") 
+			return "Goals";
+		else if (objectName === "work" || objectName === "office") 
+			return "Work";
+		else if (objectName === "travel") 
+			return "Travel";
+		else if (objectName === "daniel kawalsky") 
+			return "Credits"
+	}
+	return null;
 }
 
 function TopicComponent(props) {
-	const topic = tapToTopic(props.objectName)
-	var TopicComponent; 
-	if (topic === "Construction") {
+	if (props.topic === null)
+		return null;
+	if (props.topic === "Construction") {
 		return (
 			<div className="construction">
 				<div className="construction-intro">
@@ -38,12 +39,12 @@ function TopicComponent(props) {
 				<div className="construction-issues">
 					<div className="construction-issues-header">Known issues:</div>
 					<div className="construction-issues-list">
-						{ModalMap[topic].outstanding.map((issue, index) => <div className="construction-issue">{index + 1} - {issue}</div>)}
+						{ModalMap[props.topic].outstanding.map((issue, index) => <div className="construction-issue">{index + 1} - {issue}</div>)}
 					</div>
 				</div>
 			</div>
 		);
-	} else if (topic === "Contact") {
+	} else if (props.topic === "Contact") {
 		return (
 			<div className="contact">
 				<div className="contact-intro">
@@ -52,12 +53,12 @@ function TopicComponent(props) {
 				<div className="contact-info">
 					<div className="contact-info-header">email:</div>
 					<div className="contact-info-item">
-						{ModalMap[topic]['email'].first}{ModalMap[topic]['email'].second}
+						{ModalMap[props.topic]['email'].first}{ModalMap[props.topic]['email'].second}
 					</div>
 				</div>
 			</div>
 		);
-	} else if (topic === "Credits") {
+	} else if (props.topic === "Credits") {
 		var sectionNames = Object.keys(credits);
 		var SectionListComponent = sectionNames.map(sectionName=> {
 			var Section = credits[sectionName];
@@ -68,7 +69,7 @@ function TopicComponent(props) {
 					<div className="line">
 						<div className="line-name"><a href={Line.link}>{Line.title}</a></div>
 						<div className="line-author"><a href={Line.by}> - {Line.authorName}</a></div>
-						<div className="line-license"> {Line.license}</div>
+						<div className="line-license">({Line.license})</div>
 					</div>
 				);
 			})
@@ -93,7 +94,7 @@ function TopicComponent(props) {
 			</div>
 		);
 	} else {
-		var Topic = ModalMap[topic];
+		var Topic = ModalMap[props.topic];
 		var subtopicListNames= Object.keys(Topic);
 		var SubtopicListComponent = subtopicListNames.map(subtopicName => {
 			if (subtopicName === "image")
@@ -106,28 +107,28 @@ function TopicComponent(props) {
 				// Details format varies from Topic to Topic
 				var Detail = Subtopic[detailsName];
 				var DetailComponent;
-				if (topic === "Hobbies") {
+				if (props.topic === "Hobbies") {
 					DetailComponent = (
 						<div className="detail">
 							<div className="detail-name">{detailsName} 🔗</div>
 							<div className="detail-value"><a className="detail-link" href={Detail.link}>{Detail.text}</a></div>
 						</div>
 					);
-				} else if (topic === "Goals") {
+				} else if (props.topic === "Goals") {
 					DetailComponent = (
 						<div className="detail">
 							<div className="detail-name">{detailsName}</div>
 							<Line percent={Detail.current/Detail.target*100} strokeWidth="4" strokeColor="lightblue" style={{width: "90vw", marginLeft: "4.5vw"}} />
 						</div>
 					);
-				} else if (topic === "Work") {
+				} else if (props.topic === "Work") {
 					DetailComponent = (
 						<div className="detail">
 							<div className="detail-name">{detailsName} 🔗</div>
 							<div className="detail-value"><a className="detail-link" href={Detail.link}>{Detail.text}</a></div>
 						</div>
 					);
-				} else if (topic === "Travel") {
+				} else if (props.topic === "Travel") {
 					DetailComponent = (
 						<div className="detail">
 							<div className="detail-name">Days</div>
@@ -151,36 +152,32 @@ function TopicComponent(props) {
 		});
 		return SubtopicListComponent;
 	}
-	
-	return TopicComponent;
 }
 
 export default class Modal extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			topic: tapToTopic(this.props.objectName),
-			visible: this.props.visible
-		}
-
 		this.tapToClose = this.tapToClose.bind(this);
 	}
 
 	tapToClose() {
-		this.setState({
-			visible: false
-		});
+		this.props.closer()
 	}
 
 	render() {
+		if (this.props.topic === null)
+			return null;
+		var topic = tapToTopic(this.props.topic)
 		return (
+			<div className="modal-screen">
 			<div className="Modal">
-				<img className="x" alt="close button" src={require('../../media/2D/x-close.png')} />
+				<img className="x" onClick={this.tapToClose} alt="close button" src={require('../../media/2D/x-close.png')} />
 				<div className="topic-centerpiece-container">
-					<img className="topic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+ModalMap[this.state.topic].image)}/>
+					<img className="topic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+ModalMap[topic].image)}/>
 				</div>
-				<div className="topic-title">{this.state.topic}</div>
-				<TopicComponent objectName={this.props.objectName}></TopicComponent>
+				<div className="topic-title">{topic}</div>
+				<TopicComponent topic={topic}></TopicComponent>
+			</div>
 			</div>
 		);
 	}

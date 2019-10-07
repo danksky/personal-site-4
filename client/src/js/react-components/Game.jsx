@@ -23,6 +23,10 @@ export default class Game extends Component {
 
 	}
 
+	handleCollisionEvent(objectName) {
+		this.props.handler(objectName);
+	}
+
 	updateRotation() {
 		if (this.state.gameManager === null && (!isMobile || (isMobile && window.innerHeight > window.innerWidth))) {
 			var gameManager = new GameManager(this);
@@ -43,8 +47,6 @@ export default class Game extends Component {
 	}
 
 	render() {
-		return (
-			<div className="Game" ref={ref => (this.mount = ref)}></div>
-		);
+		return <div className="Game" ref={ref => (this.mount = ref)}></div>
 	}
 }
