@@ -74,6 +74,81 @@
 	margin-bottom: 10px;
 }
 
+/* CREDITS */
+.Modal .credits-intro {
+	text-align: center;
+	font-style: italic;
+	font-size: 5vw;
+	width: 90vw;
+	margin: 3vw;
+}	
+
+.Modal .credits-section .section-title {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 5.5vw;
+	margin: 3vw;
+}
+
+.Modal .credits-section .line {
+	width: 90%;
+	border-bottom: 1px solid #CCC;
+	letter-spacing: -1px;
+	margin-left: 5%;
+}
+
+.Modal .credits-section .line .line-name {
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+	font-size: 4.5vw;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.Modal .credits-section .line .line-name a:hover,
+.Modal .credits-section .line .line-name a:link,
+.Modal .credits-section .line .line-name a:active,
+.Modal .credits-section .line .line-name a:visited {
+	text-decoration: none;
+	cursor: pointer;
+	color: #AAA;
+}	
+
+.Modal .credits-section .line .line-author {
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+	font-size: 4.5vw;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.Modal .credits-section .line .line-author a:hover,
+.Modal .credits-section .line .line-author a:link,
+.Modal .credits-section .line .line-author a:active,
+.Modal .credits-section .line .line-author a:visited {
+	text-decoration: none;
+	cursor: pointer;
+	color: #AAA;
+}	
+
+.Modal .credits-section .line .line-license {
+	display: inline-block;
+	font-size: 4.5vw;
+	width: 19%;
+	margin-left: 5%;
+	color: #AAA;
+	vertical-align: top;
+	text-indent: 3vw;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}		
+
 /* HOBBIES, GOALS, WORK, TRAVEL */
 .Modal .topic-centerpiece-container {
 	width: 85vw;

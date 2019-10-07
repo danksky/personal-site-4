@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {isMobile} from "react-device-detect";
+import { Line } from 'rc-progress';
 
-import { Line, Circle } from 'rc-progress';
+import {credits} from './Credits.js';
 
 import '../../stylesheets/Modal.css';
 
@@ -53,6 +54,41 @@ function TopicComponent(props) {
 					<div className="contact-info-item">
 						{ModalMap[topic]['email'].first}{ModalMap[topic]['email'].second}
 					</div>
+				</div>
+			</div>
+		);
+	} else if (topic === "Credits") {
+		var sectionNames = Object.keys(credits);
+		var SectionListComponent = sectionNames.map(sectionName=> {
+			var Section = credits[sectionName];
+			var lineNames = Object.keys(Section);
+			var LineComponentList = lineNames.map(lineName => {
+				var Line = Section[lineName];
+				return (
+					<div className="line">
+						<div className="line-name"><a href={Line.link}>{Line.title}</a></div>
+						<div className="line-author"><a href={Line.by}> - {Line.authorName}</a></div>
+						<div className="line-license"> {Line.license}</div>
+					</div>
+				);
+			})
+			var SectionComponent = (
+				<div className="credits-section">
+					<div className="section-title">{sectionName}</div>
+					{LineComponentList}
+				</div>
+			)
+
+			return SectionComponent;
+		})
+		return (
+			<div className="credits">
+				<div className="credits-intro">
+					Without the following contributors to open source, this website wouldn't exist. Thanks to:
+				</div>
+
+				<div className="credits-list">
+					{SectionListComponent}
 				</div>
 			</div>
 		);
@@ -160,7 +196,8 @@ const ModalMap = {
 			"The screen cannot be turned sideways without confusing the CSS, nor can the website load starting sideways on mobile.",
 			"The bee looks like it's running on an invisible rail.",
 			"The objects look like they're being born from a white plane. Borne, too. Either way, some dimensionality would help.",
-			"The initial loading time is horrendous. Heroku's time limit is ruinous."
+			"The initial loading time is horrendous. Heroku's time limit is ruinous.",
+			"The stabilizing rotor of the helicopter isn't spinning."
 		]
 	},
 	Contact: {
@@ -169,6 +206,9 @@ const ModalMap = {
 			first: "daniel.kawal",
 			second: "sky@gmail.com"
 		}
+	},
+	Credits: {
+		image: "name.png",
 	},
 	Hobbies: {
 		image: "hobbies.png",

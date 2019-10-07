@@ -53,6 +53,7 @@ class Home extends Component {
 			<div className="App">
 				<div className="title">DANIEL KAWALSKY</div>
 				<Game></Game>
+				<Modal objectName="Credits"></Modal>
 				<header className="App-header">
 					<p>DROP A LINE{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
