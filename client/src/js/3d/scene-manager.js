@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import {isMobile, isDesktop, isAndroid} from "react-device-detect";
+import {isMobile, isAndroid} from "react-device-detect";
 
 import Preload from '../../media/3D/complete-scene.json';
 import PreloadMobile from '../../media/3D/complete-scene-mobile.json';
@@ -17,6 +17,7 @@ export default function SceneManager(gameManager) {
 	var sceneSubjects;
 	var raycaster;
 	var mouse;
+	var DPR;
 
 	this.init = function () {
 		console.log("sceneManager.init()");
@@ -56,9 +57,9 @@ export default function SceneManager(gameManager) {
 
 	function buildRender({ width, height }) {
 		const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); 
-		const DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
+		DPR = (window.devicePixelRatio) ? window.devicePixelRatio : 1;
 		renderer.setPixelRatio(isAndroid ? 1 : DPR);
-		renderer.setSize(width, height);
+		renderer.setSize(width / (isAndroid ? 1 : DPR), height / (isAndroid ? 1 : DPR));
 		renderer.gammaInput = true;
 		renderer.shadowMap.enabled = true;
 		renderer.gammaFactor = 2.2;
@@ -68,8 +69,6 @@ export default function SceneManager(gameManager) {
 	}
 
 	function buildCamera({ width, height }) {
-		const aspectRatio = width / height;
-		const fieldOfView = 60;
 		const 	left = window.innerWidth / -2, 
 				right =  window.innerWidth / 2, 
 				top = window.innerHeight / 2, 
@@ -221,7 +220,7 @@ export default function SceneManager(gameManager) {
 
 	this.onScroll = function ( event ) {
 		// Desktop doesn't interact with scroll interaction on the desktop 
-		if (isDesktop)
+		if (!isMobile)
 			return;
 		var rect = renderer.domElement.getBoundingClientRect();
 		var scrollPosition = window.pageYOffset / rect.height;

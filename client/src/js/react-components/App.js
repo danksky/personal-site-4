@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import {isMobile} from "react-device-detect";
 
+import Landscape from './Landscape';
 import Modal from './Modal.jsx';
-
-import GameManager from '../3d/game-manager.js';
+import Game from './Game.jsx';
 
 import '../../stylesheets/App.css';
+import '../../stylesheets/Landscape.css';
 
-
-const AnotherPage = () => <h1>Another Page</h1>;
-const NotFound = () => <h1>404 Not Found</h1>;
 class Home extends Component {
 	state = {
 		response: '',
@@ -22,7 +19,6 @@ class Home extends Component {
 		this.callApi()
 			.then(res => this.setState({ response: res.express }))
 			.catch(err => console.log(err));
-		var gameManager = new GameManager(this);
 	}
 
 	callApi = async () => {
@@ -56,11 +52,7 @@ class Home extends Component {
 		return (
 			<div className="App">
 				<div className="title">DANIEL KAWALSKY</div>
-				<div className="rendererDOMElement" ref={ref => (this.mount = ref)}></div>
-				<Modal objectName="Hobby"></Modal>
-				<Modal objectName="Goals"></Modal>
-				<Modal objectName="Work"></Modal>
-				<Modal objectName="Travel"></Modal>
+				<Game></Game>
 				<header className="App-header">
 					<p>DROP A LINE{this.state.response}</p>
 					<form onSubmit={this.handleSubmit}>
@@ -76,8 +68,9 @@ class Home extends Component {
 					</form>
 					<p>{this.state.responseToPost}</p>
 				</header>
+				<Landscape></Landscape>
 			</div>
-		);
+		)
 	}
 }
 
@@ -85,20 +78,8 @@ const App = () => (
 	<Router>
 		<div>
 			<Switch>
-				<Route path="/" exact component={Home} />
-				<Route path="/another-page/" component={AnotherPage} />
-				<Route component={NotFound} />
+				<Route path="/" component={Home} />
 			</Switch>
-			<nav>
-				<ul>
-					<li>
-						<Link to="/">Home</Link>
-					</li>
-					<li>
-						<Link to="/another-page/">Another Page</Link>
-					</li>
-				</ul>
-			</nav>			
 		</div>
 	</Router>
 );

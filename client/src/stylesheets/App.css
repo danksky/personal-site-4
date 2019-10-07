@@ -1,11 +1,7 @@
 .App {
   width: 100vw;
   height: 100vh;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+  font-family: 'Be Vietnam', sans-serif;
 }
 
 .App-header {
@@ -17,10 +13,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.rendererDOMElement {
-
 }
 
 .title {
@@ -35,7 +27,6 @@
   text-align: center;
   font-weight: bold;
   letter-spacing: 1.5px;
-  font-family: 'Be Vietnam', sans-serif;
   -webkit-user-select: none; /* Safari */        
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
@@ -65,26 +56,6 @@
   z-index: 1;
   background-color: #FFF0;
 }
-.button#menu-button-contact {
-  left: 10vw;
-  top: 68%;
-}
-.button#menu-button-why {
-  left: 60.2vw;
-  top: 68%;
-}
-.button#menu-button-hobbies {
-  top: 132vh;
-}
-.button#menu-button-goals {
-  top: 202vh;
-}
-.button#menu-button-work {
-  top: 282vh;
-}
-.button#menu-button-travel {
-  top: 356vh;
-}
 
 .button:hover {
   cursor: pointer;
@@ -96,13 +67,4 @@
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

@@ -1,0 +1,36 @@
+.Landscape {
+	z-index: 10;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+}
+
+.landscape-text {
+	color: white;
+	text-align: center;
+	width: 90vw;
+	margin-left: 5vw;
+	margin-top: 15vh;
+	font-size: 6vw;
+	font-weight: bold;
+}
+
+.landscape-icon {
+  animation: landscape-icon-spin infinite 20s linear;
+  width: 20vw;
+  height: 20vw;
+  position: relative;
+  top: 7vw;
+  left: 40vw;
+}
+
+@keyframes landscape-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

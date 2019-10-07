@@ -19,6 +19,62 @@
 }
 
 
+/* CONSTRUCTION */
+.Modal .construction-intro {
+	text-align: center;
+	font-style: italic;
+	font-size: 5vw;
+	width: 90vw;
+	margin: 3vw;
+}
+
+.Modal .construction-issues-header {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 5.5vw;
+	margin: 3vw;
+}
+
+.Modal .construction-issue {
+	font-size: 4.5vw;
+	font-weight: bold;
+	width: 90%;
+	margin-left: 5%;
+	color: #AAA;
+	vertical-align: top;
+	text-indent: 3vw;
+	margin-bottom: 10px;
+}
+
+/* CONTACT */
+.Modal .contact-intro {
+	text-align: center;
+	font-style: italic;
+	font-size: 5vw;
+	width: 90vw;
+	margin: 3vw;
+}
+
+.Modal .contact-info-header {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 5.5vw;
+	margin: 3vw;
+}
+
+.Modal .contact-info-item {
+	display: inline-block;
+	font-size: 4.5vw;
+	font-weight: bold;
+	width: 90%;
+	margin-left: 5%;
+	color: #AAA;
+	vertical-align: top;
+	text-indent: 3vw;
+	margin-bottom: 10px;
+}
+
+/* HOBBIES, GOALS, WORK, TRAVEL */
 .Modal .topic-centerpiece-container {
 	width: 85vw;
 	height: 85vw;

@@ -9,27 +9,53 @@ function tapToTopic(objectName)  {
 	objectName = objectName.toLowerCase();
 	if (objectName === "bumblee" || objectName === "beehive") 
 		return "Hobbies";
-	 else if (objectName === "bulldozer" || objectName === "cone") 
+	else if (objectName === "bulldozer" || objectName === "cone") 
 		return "Construction";
-	 else if (objectName === "mailbox") 
+	else if (objectName === "mailbox") 
 		return "Contact";
-	 else if (objectName === "hobby") 
+	else if (objectName === "hobby") 
 		return "Hobbies";
-	 else if (objectName === "goals") 
+	else if (objectName === "goals") 
 		return "Goals";
-	 else if (objectName === "work") 
+	else if (objectName === "work") 
 		return "Work";
-	 else if (objectName === "travel") 
+	else if (objectName === "travel") 
 		return "Travel";
+	else if (objectName === "credits") 
+		return "Credits"
 }
 
 function TopicComponent(props) {
 	const topic = tapToTopic(props.objectName)
 	var TopicComponent; 
 	if (topic === "Construction") {
-		
+		return (
+			<div className="construction">
+				<div className="construction-intro">
+					If you find a bug, please (take a screenshot,) touch the mailbox, and send it!
+				</div>
+				<div className="construction-issues">
+					<div className="construction-issues-header">Known issues:</div>
+					<div className="construction-issues-list">
+						{ModalMap[topic].outstanding.map((issue, index) => <div className="construction-issue">{index + 1} - {issue}</div>)}
+					</div>
+				</div>
+			</div>
+		);
 	} else if (topic === "Contact") {
-
+		return (
+			<div className="contact">
+				<div className="contact-intro">
+					Hey, I'd love to hear from you.
+				</div>
+				<div className="contact-info">
+					<div className="contact-info-header">email:</div>
+					<div className="contact-info-item">
+						{ModalMap[topic]['email'].first}{ModalMap[topic]['email'].second}
+					</div>
+				</div>
+			</div>
+		);
 	} else {
 		var Topic = ModalMap[topic];
 		var subtopicListNames= Object.keys(Topic);
@@ -97,12 +123,17 @@ export default class Modal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			topic: tapToTopic(this.props.objectName)
+			topic: tapToTopic(this.props.objectName),
+			visible: this.props.visible
 		}
+
+		this.tapToClose = this.tapToClose.bind(this);
 	}
 
-	componentDidMount() {
-		
+	tapToClose() {
+		this.setState({
+			visible: false
+		});
 	}
 
 	render() {
@@ -123,10 +154,21 @@ export default class Modal extends Component {
 
 const ModalMap = {
 	Construction: {
-
+		image: "construction.png",
+		outstanding: [
+			"The best resolution that can be functionally rendered on Android without messing up the layout is DPR (density pixel ratio) of 1.",
+			"The screen cannot be turned sideways without confusing the CSS, nor can the website load starting sideways on mobile.",
+			"The bee looks like it's running on an invisible rail.",
+			"The objects look like they're being born from a white plane. Borne, too. Either way, some dimensionality would help.",
+			"The initial loading time is horrendous. Heroku's time limit is ruinous."
+		]
 	},
 	Contact: {
-
+		image: "mailbox.png",
+		email: {
+			first: "daniel.kawal",
+			second: "sky@gmail.com"
+		}
 	},
 	Hobbies: {
 		image: "hobbies.png",
@@ -290,18 +332,3 @@ const ModalMap = {
 		},
 	},
 }
-
-
-
-// modals:
-/*
-
-constructoin
-contact
-hobbies
-work
-travel
-goals
-bees --> hobbies
-
-*/
