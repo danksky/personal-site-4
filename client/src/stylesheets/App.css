@@ -3,7 +3,13 @@ body {
 
 .App {
   width: 100vw;
-  height: 100vh;
+  .page-header {
+    @supports (-webkit-appearance:none) {
+      .os-android & {
+        min-height: calc(100vh - 56px);
+      }
+    }
+  }
   font-family: 'Be Vietnam', sans-serif;
 }
 
