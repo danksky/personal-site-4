@@ -253,7 +253,255 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+	.modal-screen {
+		width: 100%;
+		height: 100%;
+		z-index: 9;
+		position: fixed;
+		top: 0;
+	}
 
+	.Modal {
+		z-index: 10;
+		position: fixed;
+		top: 0;
+		width: calc(100vw - 12px);
+		border: 6px black solid;
+		background-color: white;
+		overflow-y: auto;
+		overflow-x: hidden;
+		max-height: calc(100% - 12px);
+	}
+
+	.Modal .x {
+		position: sticky;
+		width: 10vw;
+		height: 10vw;
+		left: 90%;
+		top: 0;
+	}
+
+	/* TRIVIAL ON MOBILE */
+	.Modal .x:hover {
+		cursor: pointer;
+	}
+
+	.Modal .x:active {
+		background-color: #0002;
+	}
+
+
+	/* CONSTRUCTION */
+	.Modal .construction-intro {
+		text-align: center;
+		font-style: italic;
+		font-size: 5vw;
+		width: 90vw;
+		margin: 3vw;
+	}
+
+	.Modal .construction-issues-header {
+		font-weight: bold;
+		font-style: italic;
+		font-size: 5.5vw;
+		margin: 3vw;
+	}
+
+	.Modal .construction-issue {
+		font-size: 4.5vw;
+		font-weight: bold;
+		width: 90%;
+		margin-left: 5%;
+		color: #AAA;
+		vertical-align: top;
+		text-indent: 3vw;
+		margin-bottom: 10px;
+	}
+
+	/* CONTACT */
+	.Modal .contact-intro {
+		text-align: center;
+		font-style: italic;
+		font-size: 5vw;
+		width: 90vw;
+		margin: 3vw;
+	}
+
+	.Modal .contact-info-header {
+		font-weight: bold;
+		font-style: italic;
+		font-size: 5.5vw;
+		margin: 3vw;
+	}
+
+	.Modal .contact-info-item {
+		display: inline-block;
+		font-size: 4.5vw;
+		font-weight: bold;
+		width: 90%;
+		margin-left: 5%;
+		color: #AAA;
+		vertical-align: top;
+		text-indent: 3vw;
+		margin-bottom: 10px;
+	}
+
+	/* CREDITS */
+	.Modal .credits-intro {
+		text-align: center;
+		font-style: italic;
+		font-size: 5vw;
+		width: 90vw;
+		margin: 3vw;
+	}	
+
+	.Modal .credits-section .section-title {
+		font-weight: bold;
+		font-style: italic;
+		font-size: 5.5vw;
+		margin: 3vw;
+	}
+
+	.Modal .credits-section .line {
+		width: 90%;
+		border-bottom: 1px solid #CCC;
+		letter-spacing: -1.5px;
+		margin-left: 5%;
+	}
+
+	.Modal .credits-section .line .line-name {
+		display: inline-block;
+		width: 30%;
+		vertical-align: top;
+		font-size: 4.5vw;
+		margin-bottom: 10px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.Modal .credits-section .line .line-name a:hover,
+	.Modal .credits-section .line .line-name a:link,
+	.Modal .credits-section .line .line-name a:active,
+	.Modal .credits-section .line .line-name a:visited {
+		text-decoration: none;
+		cursor: pointer;
+		color: #AAA;
+		width: 100%;
+	}	
+
+	.Modal .credits-section .line .line-author {
+		display: inline-block;
+		width: 45%;
+		vertical-align: top;
+		font-size: 4.5vw;
+		margin-bottom: 10px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.Modal .credits-section .line .line-author a:hover,
+	.Modal .credits-section .line .line-author a:link,
+	.Modal .credits-section .line .line-author a:active,
+	.Modal .credits-section .line .line-author a:visited {
+		text-decoration: none;
+		cursor: pointer;
+		color: #AAA;
+		width: 100%;
+	}	
+
+	.Modal .credits-section .line .line-license {
+		display: inline-block;
+		font-size: 4.5vw;
+		width: 19.5%;
+		margin-left: 5%;
+		color: #AAA;
+		vertical-align: top;
+		text-indent: 3vw;
+		margin-bottom: 10px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}		
+
+	/* HOBBIES, GOALS, WORK, TRAVEL */
+	.Modal .topic-centerpiece-container {
+		width: 85vw;
+		height: 85vw;
+		margin: auto;
+		border: 1px solid #CCC;
+	}
+
+	.Modal .topic-centerpiece-container img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.Modal .topic-title {
+		top: 5vh;
+		font-size: 10vw;
+		font-weight: bold;
+		text-decoration: underline;
+		text-align: center;
+		margin-top: 15vh;
+		margin-bottom: 15vh;
+	}
+
+	.Modal .subtopic .subtopic-centerpiece-container {
+		width: 30vw;
+		height: 30vw;
+		margin: auto;
+	}
+
+	.Modal .subtopic .subtopic-centerpiece-container img {
+		width: 100%;
+		height: 100%;
+	}
+
+	.Modal .subtopic .subtopic-title {
+		font-size: 7vw;
+		font-weight: bold;
+		font-style: italic;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 3vh;
+	}
+
+	.Modal .subtopic .detail .detail-name {
+		display: inline-block;
+		font-size: 4.5vw;
+		font-weight: bold;
+		width: 30%;
+		margin-left: 5%;
+		text-align: right;
+		color: #AAA;
+		vertical-align: top;
+	}
+
+	.Modal .subtopic .detail .detail-value {
+		display: inline-block;
+		font-size: 4.5vw;
+		width: 45%;
+		margin-left: 2%;
+		color: black;
+		font-weight: bold;
+	}
+
+	.Modal .subtopic .detail .detail-value a:hover,
+	.Modal .subtopic .detail .detail-value a:link,
+	.Modal .subtopic .detail .detail-value a:active,
+	.Modal .subtopic .detail .detail-value a:visited {
+		text-decoration: none;
+		color: black;
+		cursor: pointer;
+	}
+
+	.Modal .subtopic .subtopic-separator {
+		width: 80%;
+		margin: auto;
+		height: 1px;
+		background-color: #CCC;
+		margin-top: 3vh;
+	}
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
