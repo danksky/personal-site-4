@@ -13,7 +13,7 @@ function tapToTopic(objectName)  {
 			return "Construction";
 		else if (objectName === "mailbox") 
 			return "Contact";
-		else if (objectName === "hobby" || objectName === "bumblee" || objectName === "beehive") 
+		else if (objectName === "hobby" || objectName === "bumblebee" || objectName === "beehive") 
 			return "Hobbies";
 		else if (objectName === "goals") 
 			return "Goals";
