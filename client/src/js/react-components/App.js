@@ -79,21 +79,6 @@ class Home extends Component {
 				<div className="title">DANIEL KAWALSKY</div>
 				<Game handler={this.handleCollisionEvent}></Game>
 				<Modal topic={this.state.selected} closer={this.closeModal}></Modal>
-				<header className="App-header">
-					<p>DROP A LINE{this.state.response}</p>
-					<form onSubmit={this.handleSubmit}>
-						<p>
-							<strong>Post to Server:</strong>
-						</p>
-						<input
-							type="text"
-							value={this.state.post}
-							onChange={e => this.setState({ post: e.target.value })}
-						/>
-						<button type="submit">Submit</button>
-					</form>
-					<p>{this.state.responseToPost}</p>
-				</header>
 				<Landscape></Landscape>
 			</div>
 		)
@@ -111,3 +96,21 @@ const App = () => (
 );
 
 export default App;
+
+/*
+<header className="App-header">
+	<p>DROP A LINE{this.state.response}</p>
+	<form onSubmit={this.handleSubmit}>
+		<p>
+			<strong>Post to Server:</strong>
+		</p>
+		<input
+			type="text"
+			value={this.state.post}
+			onChange={e => this.setState({ post: e.target.value })}
+		/>
+		<button type="submit">Submit</button>
+	</form>
+	<p>{this.state.responseToPost}</p>
+</header>
+*/

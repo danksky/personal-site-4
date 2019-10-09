@@ -118,7 +118,7 @@ function TopicComponent(props) {
 					DetailComponent = (
 						<div className="detail">
 							<div className="detail-name">{detailsName}</div>
-							<Line percent={Detail.current/Detail.target*100} strokeWidth="4" strokeColor="lightblue" style={{width: "90vw", marginLeft: "4.5vw"}} />
+							<Line percent={Detail.current/Detail.target*100} strokeWidth="4" strokeColor="lightblue" style={{width: "90%", marginLeft: "4.5%"}} />
 						</div>
 					);
 				} else if (props.topic === "Work") {
