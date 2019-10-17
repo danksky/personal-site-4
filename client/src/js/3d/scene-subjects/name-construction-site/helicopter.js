@@ -4,10 +4,17 @@ export default function Helicopter(child) {
 
 	var gameObject = null;
 	var propeller = null;
+	var stabilizer = null;
 	var blockW = null;
 	var originalPosition = null;
 	var originalPaintColor = null;
 	var dippedPaintColor = null;
+
+	//update
+	var propellerRotationVector3 = null;
+	var stabilizerRotationVector3 = null;
+
+	//fly
 
 	this.state = {
 		flying: false,
@@ -19,6 +26,8 @@ export default function Helicopter(child) {
 	this.init = function() {
 		gameObject = child;
 		propeller = child.children[2];
+		stabilizer = child.children[3];
+
 		blockW = child.children[7];
 		blockW.material = blockW.material.clone();
 		originalPaintColor = blockW.material.color.clone();
@@ -27,6 +36,12 @@ export default function Helicopter(child) {
 		gameObject.position.copy(originalPosition);
 		// QUICK FIX
 		blockW.material.color = dippedPaintColor;
+
+		//
+
+		// rotors
+		propellerRotationVector3 = new THREE.Vector3();
+		stabilizerRotationVector3 = new THREE.Vector3();
 	}
 	this.init();
 
@@ -45,7 +60,10 @@ export default function Helicopter(child) {
 	
 	this.update = function(time) {
 		this.prevTime = time;
-		propeller.rotation.setFromVector3(new THREE.Vector3(0,time,0));
+		propellerRotationVector3.set(0, time, 0);
+		stabilizerRotationVector3.set(90, time * 3, 0);
+		propeller.rotation.setFromVector3(propellerRotationVector3);
+		stabilizer.rotation.setFromVector3(stabilizerRotationVector3);
 	}
 
 	this.onWindowResize = function() {

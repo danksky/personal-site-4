@@ -7,6 +7,11 @@ export default function AirplaneLand(child) {
 	var midPosition = null;
 	var finalPosition = null;
 
+	// fly
+	var flightPath = null;
+	var newPosition = null
+	var delta = null;
+
 	this.state = {
 		flying: false
 	};
@@ -19,21 +24,21 @@ export default function AirplaneLand(child) {
 		originalPosition = new THREE.Vector3(-1.9, 1, 8.9);
 		midPosition = new THREE.Vector3(0, 0, 8.3);
 		finalPosition = new THREE.Vector3(3, 0, 7.3);
+
+		flightPath = new THREE.Vector3();
+		newPosition = new THREE.Vector3();
+		delta = new THREE.Vector3();
 	}
 	this.init();
 
 	this.fly = function (t) {
-		// 𝑦 = 0.001𝑥2−2𝑥 (quadratic function) - for later iterations...
-		var flightPath = new THREE.Vector3();
-		var newPosition = new THREE.Vector3();
-		var delta;
 		if (t < 0.5) {
 			flightPath.subVectors(midPosition, originalPosition);
-			delta = new THREE.Vector3(t, t, t);
+			delta.set(t, t, t);
 			newPosition.addVectors(originalPosition, flightPath.multiply(delta.multiplyScalar(2)));
 		} else {
 			flightPath.subVectors(finalPosition, midPosition);
-			delta = new THREE.Vector3(t-0.5, t-0.5, t-0.5);
+			delta.set(t-0.5, t-0.5, t-0.5);
 			newPosition.addVectors(midPosition, flightPath.multiply(delta.multiplyScalar(2)));
 		}
 		gameObject.position.copy(newPosition);

@@ -6,6 +6,10 @@ export default function ArcheryArrow(child) {
 	var originalPosition = null;
 	var finalPosition = null;
 
+	var flightPath = null;
+	var newPosition = null;
+	var delta = null;
+
 	this.state = {
 		flying: false
 	};
@@ -17,14 +21,15 @@ export default function ArcheryArrow(child) {
 		// Not sure how this assignment works, but trying to copy value not address by copying primitives.
 		originalPosition = gameObject.position.clone();
 		finalPosition = new THREE.Vector3(8.8, 2, originalPosition.z);
+		flightPath = new THREE.Vector3();
+		newPosition = new THREE.Vector3();
+		delta = new THREE.Vector3();
 	}
 	this.init();
 
 	this.fly = function (t) {
-		var flightPath = new THREE.Vector3();
 		flightPath.subVectors(finalPosition, originalPosition);
-		var newPosition = new THREE.Vector3();
-		var delta = new THREE.Vector3(t, t, t);
+		delta.set(t,t,t);
 		newPosition.addVectors(originalPosition, flightPath.multiply(delta));
 		gameObject.position.copy(newPosition);
 	}

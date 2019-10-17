@@ -8,8 +8,14 @@ export default function Office(group) {
 
 	var children = {};
 	var center = new THREE.Vector2(-0.6, 0.25);
+	this.gameObject = null;
 	var scrollTarget = 0.6;
 	var transition = null;
+
+	var initialRotation = null;
+	var jostling = false;
+	var jostlePoint = -1;
+	var jostleDuration = .4;
 
 	this.state = {
 		dragging: false
@@ -20,7 +26,9 @@ export default function Office(group) {
 	this.init = function() {
 		if (group) {
 			assignChildren();
+			this.gameObject = group;
 			transition = new Transition();
+			initialRotation = this.gameObject.rotation.toVector3();
 		} else 
 			console.warn("'group' is empty. Not assigning children to Office");
 	}
@@ -34,6 +42,26 @@ export default function Office(group) {
 			if (children.swivelChair)
 				children.swivelChair.swivel(t);
 		}
+	}
+
+	this.nudge = function (objectName, eTime) {
+		if (!jostling) {
+			jostling = true;
+			jostlePoint = eTime;
+		}
+	}
+
+	this.jostle = function (objectName, eTime) {
+		var duration = eTime - jostlePoint;
+		if (jostling && transition) {
+			if (duration < jostleDuration ) {
+				var amplitude = transition.Desktop.amplitude(duration, jostleDuration);
+				this.gameObject.rotation.set(initialRotation.x, initialRotation.y, initialRotation.z + amplitude)
+				// console.log("amplitude", amplitude)
+			} else {
+				jostling = false;
+			}
+		} 
 	}
 
 	this.approachWithScroll = function (scrollPosition) {
@@ -57,6 +85,7 @@ export default function Office(group) {
 			children[key].update(time);
 		});
 		this.prevTime = time;
+		this.jostle("trivial", time);
 	}
 
 	this.onWindowResize = function() {

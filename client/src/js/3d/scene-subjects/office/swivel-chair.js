@@ -6,6 +6,12 @@ export default function SwivelChair(child) {
 	var originalRotation = null;
 	var finalRotation = null;
 
+	// swivel
+	var rotationSpeed = null;
+	var newRotation = null;
+	var newRotationVector3 = null;
+	var delta = null;
+
 	this.state = {
 		swiveling: false
 	};
@@ -17,27 +23,22 @@ export default function SwivelChair(child) {
 		// Not sure how this assignment works, but trying to copy value not address by copying primitives.
 		originalRotation = gameObject.rotation.clone();
 		finalRotation = new THREE.Euler(originalRotation._x, -140/360*2*Math.PI, originalRotation._z);
+
+		rotationSpeed = new THREE.Vector3();
+		newRotation = new THREE.Euler();
+		newRotationVector3 = new THREE.Vector3();
+		delta = new THREE.Vector3();
 	}
 	this.init();
 
 	this.swivel = function (t) {
 		//-15.8 -> -140
-
-		var rotationSpeed = new THREE.Vector3();
 		rotationSpeed.subVectors(finalRotation.toVector3(), originalRotation.toVector3());
-		var newRotation = new THREE.Euler();
-		var newRotationVector3 = new THREE.Vector3();
-		var delta = new THREE.Vector3(t, t, t);
+		delta.set(t,t,t);
 		newRotationVector3.addVectors(originalRotation.toVector3(), rotationSpeed.multiply(delta));
 		newRotation.setFromVector3(newRotationVector3);
 		gameObject.rotation.copy(newRotation);
 		
-		/*
-
-		Functions:
-		x = exponential function determined by two points: (0,0) and (1, rangeofxvalues=(xmax - xmin))
-		z = quadratic function with relation to x determined by two points: (x0, z0) and (x1, z1)
-		*/
 	}
 	
 	this.update = function(time) {
