@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const favicon = require('express-favicon');
+const herokuSelfPing = require('heroku-self-ping')("http://danielkawalsky.com");
 
 const app = express();
 const port = process.env.PORT || 5000;

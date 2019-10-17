@@ -19,6 +19,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-favicon": "^2.0.1",
+    "heroku-self-ping": "^2.0.0",
     "react-device-detect": "^1.7.5",
     "react-three-renderer": "^3.2.4",
     "three": "^0.107.0"

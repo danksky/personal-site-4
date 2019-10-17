@@ -20,13 +20,16 @@ class Home extends Component {
 		};
 		this.handleCollisionEvent = this.handleCollisionEvent.bind(this);
 		this.closeModal = this.closeModal.bind(this);
-		
+		this.handleKeyPress = this.handleKeyPress.bind(this);
+		document.addEventListener("keydown", this.handleKeyPress, false);
 	}
 
 	componentDidMount() {
+		/*
 		this.callApi()
 			.then(res => this.setState({ response: res.express }))
 			.catch(err => console.log(err));
+			*/
 	}
 
 	callApi = async () => {
@@ -62,7 +65,12 @@ class Home extends Component {
 			document.body.style.position = 'fixed';
 			document.body.style.cursor = "default";
 		}
-		
+	}
+
+	handleKeyPress(event) {
+		if(event.keyCode === 27) { // ESCAPE
+			this.closeModal();
+		} 
 	}
 
 	closeModal() {

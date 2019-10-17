@@ -26,6 +26,7 @@ function tapToTopic(objectName)  {
 	}
 	return null;
 }
+        
 
 function TopicComponent(props) {
 	if (props.topic === null)
@@ -158,10 +159,26 @@ export default class Modal extends Component {
 	constructor(props) {
 		super(props);
 		this.tapToClose = this.tapToClose.bind(this);
+		this.handleScroll = this.handleScroll.bind(this);
+		this.ModalRef = React.createRef();
+		this.state = {
+			scrollHeight: -1
+		};
 	}
 
 	tapToClose() {
+		console.log("tapToClose");
 		this.props.closer()
+	}
+
+	handleScroll(event) {
+		this.setState({
+			scrollHeight: event.srcElement.scrollingElement.scrollTop
+		});
+	}
+
+	componentDidMount() {
+		window.addEventListener('scroll', this.handleScroll);
 	}
 
 	render() {
@@ -170,7 +187,8 @@ export default class Modal extends Component {
 		var topic = tapToTopic(this.props.topic)
 		return (
 			<div className="modal-screen">
-			<div className="Modal">
+			<div className="Modal" ref={this.ModalRef}>
+				<div className="scrollPrompter"></div>
 				<img className="x" onClick={this.tapToClose} alt="close button" src={require('../../media/2D/x-close.png')} />
 				<div className="topic-centerpiece-container">
 					<img className="topic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+ModalMap[topic].image)}/>
