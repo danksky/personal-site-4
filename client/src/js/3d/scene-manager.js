@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import {isMobile, isAndroid} from "react-device-detect";
 
-import Preload from '../../media/3D/complete-scene.json';
+import Preload from '../../media/3D/complete-scene-platforms.json';
 import PreloadMobile from '../../media/3D/complete-scene-mobile.json';
 import NameConstructionSite from './scene-subjects/name-construction-site/name-construction-site.js';
 import Goals from './scene-subjects/goals/goals.js';

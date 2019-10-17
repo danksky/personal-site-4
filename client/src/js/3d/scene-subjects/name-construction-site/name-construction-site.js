@@ -50,12 +50,12 @@ export default function NameConstructionSite(group) {
 	}
 
 	function assignChildren () {
-		children.Bumblebee = new Bumblebee(group.children[12]);
-		children.Helicopter = new Helicopter(group.children[6]);
-		children["Daniel Kawalsky"] = new BlockName(group.children[1]);
-		children.Bulldozer = new Bulldozer(group.children[3]);
-		children.mailbox = new Mailbox(group.children[2]);
-		children.Cones = new Cones(group.children[4]);
+		children.Bumblebee = new Bumblebee(group.children[11]);
+		children.Helicopter = new Helicopter(group.children[5]);
+		children["Daniel Kawalsky"] = new BlockName(group.children[0]);
+		children.Bulldozer = new Bulldozer(group.children[2]);
+		children.mailbox = new Mailbox(group.children[1]);
+		children.Cones = new Cones(group.children[3]);
 	}
 	
 	this.update = function(time) {
