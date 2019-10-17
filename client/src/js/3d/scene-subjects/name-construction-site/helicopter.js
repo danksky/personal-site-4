@@ -37,8 +37,6 @@ export default function Helicopter(child) {
 		// QUICK FIX
 		blockW.material.color = dippedPaintColor;
 
-		//
-
 		// rotors
 		propellerRotationVector3 = new THREE.Vector3();
 		stabilizerRotationVector3 = new THREE.Vector3();

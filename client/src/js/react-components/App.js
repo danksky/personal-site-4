@@ -53,13 +53,15 @@ class Home extends Component {
 	};
 
 	handleCollisionEvent(objectName) {
-		console.log(objectName);
-		this.setState({
-			selected: objectName,
-			scrollPosition: window.scrollY
-		})
-
-		document.body.style.position = 'fixed';
+		if (objectName !== null) {
+			console.log(objectName);
+			this.setState({
+				selected: objectName,
+				scrollPosition: window.scrollY
+			})
+			document.body.style.position = 'fixed';
+			document.body.style.cursor = "default";
+		}
 		
 	}
 
