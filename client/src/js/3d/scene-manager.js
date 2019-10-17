@@ -21,6 +21,7 @@ export default function SceneManager(gameManager) {
 	var DPR;
 
 	var subjectMap = {};
+	var reminderMap = {};
 
 	this.init = function () {
 		console.log("sceneManager.init()");
@@ -58,9 +59,14 @@ export default function SceneManager(gameManager) {
 			"Travel": sceneSubjects[3],
 			"Daniel Kawalsky": sceneSubjects[0],
 		};
-
-		if (this.onWindowResize)
-			this.onWindowResize();
+		reminderMap = {
+			"Hobby": sceneSubjects[4],
+			"Goals": sceneSubjects[2],
+			"Office": sceneSubjects[1],
+			"Travel": sceneSubjects[3],
+			"Daniel Kawalsky": sceneSubjects[0],
+		}
+		reminder();
 	};
 
 	this.init();
@@ -125,6 +131,7 @@ export default function SceneManager(gameManager) {
 			while (object.parent) {
 				if (subjectMap[object.name]) {
 					document.body.style.cursor = "pointer";
+					reminderMap[object.name] = false;
 					return object.name;
 				}
 				object = object.parent;
@@ -193,8 +200,15 @@ export default function SceneManager(gameManager) {
 		}
 	};
 
-	this.reminder = function () {
-
+	function reminder () {
+		if (isMobile) {
+			setInterval(() => {
+				Object.keys(reminderMap).forEach(objectName => {
+					if (reminderMap[objectName])
+						subjectMap[objectName].nudge(objectName, clock.getElapsedTime());
+				})
+			}, 3000)
+		}
 	};
 
 	this.onTouchStart = function ( event ) {
