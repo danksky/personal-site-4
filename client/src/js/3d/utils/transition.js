@@ -11,7 +11,10 @@ export default function Transition () {
 			return Math.pow(t,-1.25);
 		},
 		amplitude: function (duration, max) {
-			return 2 * Math.sin(2 * (2 * Math.PI / max) * duration) / 360 * 2 * Math.PI;
+			return Math.sin((2 * Math.PI / (max/1.5)) * duration) / 360 * 2 * Math.PI;
+		},
+		bounce: function (maxHeight, duration, max) {
+			return Math.abs(maxHeight * Math.sin((2 * Math.PI/(max * 2)) * duration))
 		}
 	};
 	this.Mobile =  {
@@ -25,8 +28,11 @@ export default function Transition () {
 			var t = Math.abs(scrollTarget - scrollPosition);
 			return Math.pow(5*t,-1.5);
 		},
-		amplitude: function (duration) {
-			return 4 * Math.sin(2 * Math.PI / 1.8 * duration)/(1.8+duration) / 360 * 2 * Math.PI;
+		amplitude: function (duration, max) {
+			return 2 * Math.sin(2 * (2 * Math.PI / max) * duration) / 360 * 2 * Math.PI;
+		},
+		bounce: function (maxHeight, duration, max) {
+			return Math.abs((maxHeight*2) * Math.sin(0.5 * ((2 * Math.PI / max) * duration))/(max + Math.pow(duration,4)))
 		}
 	} 
 }

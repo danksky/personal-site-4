@@ -11,10 +11,10 @@ export default function Travel(group) {
 	var scrollTarget = 0.8;
 	var transition = null;
 
-	var initialRotation = null;
-	var jostling = false;
-	var jostlePoint = -1;
-	var jostleDuration = .4;
+	var initialPosition = null;
+	var bouncing = false;
+	var bounceStart = false;
+	var bounceDuration = 0.66;
 
 	this.state = {
 		dragging: false
@@ -26,7 +26,7 @@ export default function Travel(group) {
 		if (group){
 			assignChildren();
 			this.gameObject = group;
-			initialRotation = this.gameObject.rotation.toVector3();
+			initialPosition = this.gameObject.position.clone();
 			transition = new Transition();
 		} else 
 			console.warn("'group' is empty. Not assigning children to Office");
@@ -45,21 +45,20 @@ export default function Travel(group) {
 	}
 
 	this.nudge = function (objectName, eTime) {
-		if (!jostling) {
-			jostling = true;
-			jostlePoint = eTime;
+		if (!bouncing) {
+			bouncing = true;
+			bounceStart = eTime;
 		}
 	}
 
-	this.jostle = function (objectName, eTime) {
-		var duration = eTime - jostlePoint;
-		if (jostling && transition) {
-			if (duration < jostleDuration ) {
-				var amplitude = transition.Desktop.amplitude(duration, jostleDuration) 
-				this.gameObject.rotation.set(initialRotation.x, initialRotation.y, initialRotation.z + amplitude)
-				// console.log("amplitude", amplitude)
+	this.bounce = function (objectName, eTime) {
+		var duration = eTime - bounceStart;
+		if (bouncing && transition) {
+			if (duration < bounceDuration ) {
+				var height = transition.Desktop.bounce(1.5, duration, bounceDuration) /20
+				this.gameObject.position.set(initialPosition.x, initialPosition.y + height, initialPosition.z)
 			} else {
-				jostling = false;
+				bouncing = false;
 			}
 		} 
 	}
@@ -86,7 +85,7 @@ export default function Travel(group) {
 		});
 
 		this.prevTime = time;
-		this.jostle("trivial", time);
+		this.bounce("trivial", time);
 	}
 
 	this.onWindowResize = function() {

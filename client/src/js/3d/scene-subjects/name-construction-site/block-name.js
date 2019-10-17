@@ -9,7 +9,7 @@ export default function BlockName(child) {
 	var initialRotation = null;
 	var jostling = false;
 	var jostlePoint = -1;
-	var jostleDuration = .4;
+	var jostleDuration = 1;
 
 	this.prevTime = -1;
 

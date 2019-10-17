@@ -188,8 +188,9 @@ export default function SceneManager(gameManager) {
 		});
 		raycaster.setFromCamera( mouse.position, camera );
 		var objectName = onRaycast(raycaster.intersectObjects( scene.children, true ));
-		if (objectName !== null) 
+		if (objectName !== null) {
 			subjectMap[objectName].nudge(objectName, clock.getElapsedTime());
+		}
 	};
 
 	this.reminder = function () {
