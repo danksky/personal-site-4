@@ -124,11 +124,13 @@ export default function SceneManager(gameManager) {
 			var object = intersects[i].object;
 			while (object.parent) {
 				if (subjectMap[object.name]) {
+					document.body.style.cursor = "pointer";
 					return object.name;
 				}
 				object = object.parent;
 			}
 		}
+		document.body.style.cursor = "default";
 		return null;
 	}
 
