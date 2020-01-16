@@ -8,6 +8,8 @@ import Game from './Game.jsx';
 import '../../stylesheets/App.css';
 import '../../stylesheets/Landscape.css';
 
+import YearInData2019 from './pages/YearInData2019.jsx';
+
 class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -68,9 +70,9 @@ class Home extends Component {
 	}
 
 	handleKeyPress(event) {
-		if(event.keyCode === 27) { // ESCAPE
+		if (event.keyCode === 27) { // ESCAPE
 			this.closeModal();
-		} 
+		}
 	}
 
 	closeModal() {
@@ -78,7 +80,7 @@ class Home extends Component {
 			selected: null,
 		});
 		// When the modal is hidden... we have to retrieve the scroll position.
-		
+
 		document.body.style.position = '';
 		window.scrollTo(0, this.state.scrollPosition)
 	}
@@ -99,6 +101,7 @@ const App = () => (
 	<Router>
 		<div>
 			<Switch>
+				<Route path="/year-in-data-2019" component={YearInData2019} />
 				<Route path="/" component={Home} />
 			</Switch>
 		</div>

@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const favicon = require('express-favicon');
-const herokuSelfPing = require('heroku-self-ping')("http://danielkawalsky.com");
+// const herokuSelfPing = require('heroku-self-ping')("http://danielkawalsky.com");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   // Handle React routing, return all requests to React app
-  app.get('*', function(req, res) {
+  app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
