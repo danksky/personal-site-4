@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import '../../../stylesheets/YearInData2019.css'
-
 class YearInData2019 extends Component {
     constructor(props) {
         super(props);
@@ -10,11 +8,24 @@ class YearInData2019 extends Component {
     }
 
     componentDidMount() {
-
+        import('../../../stylesheets/YearInData2019.css');
     }
 
     render() {
+        const overallObservedQuality = require('./charts/2019---Overall-Quality-(Observed)-(1).png');
+        const sleepHistogram = require('./charts/Histogram-of-Sleep.png');
+        const weekdayHistograms = require('./charts/Histograms-of-Weekdays.png');
+        const socialScatter = require('./charts/Overall-Quality-of-Day-vs.-Social-Depth.png');
+        const alcoholHistograms = require('./charts/Histograms-of-Alcohol.png');
+        const alcoholScatter = require('./charts/Drinks-vs.-Quality-of-Day-(1).png');
+        const workoutHistograms = require('./charts/Histogram-of-Workouts.png');
+        const workoutScatter = require('./charts/Workout-Duration.png');
+        const stressScatter = require('./charts/Stress-vs.-Overall-(Observed).png');
+        const funScatter = require('./charts/Fun-vs.-Quality-of-Day.png');
+
         return (
+
+
             <div className="YearInData2019">
                 <h1 id="year-in-data">Year in Data</h1>
                 <p id="subtitle">On Jan 18, 2019, I decided to record my well-being. Here&#39;s how 2019 went for me. </p>
@@ -26,7 +37,7 @@ class YearInData2019 extends Component {
                     <div className="toc-item"><a href="#sleep">Sleep</a></div>
                     <div className="toc-item"><a href="#weekdays">Weekdays</a></div>
                     <div className="toc-item"><a href="#social">Social</a></div>
-                    <div className="toc-item"><a href="#drinking">Drinking</a></div>
+                    <div className="toc-item"><a href="#alcohol">Alcohol</a></div>
                     <div className="toc-item"><a href="#exercise">Exercise</a></div>
                     <div className="toc-item"><a href="#stress">Stress</a></div>
                     <div className="toc-item"><a href="#fun">Fun</a></div>
@@ -113,33 +124,34 @@ class YearInData2019 extends Component {
                 <h2 id="insights">Insights</h2>
                 <h3 id="overall">Overall</h3>
                 <p>Up next are 2 lines. Both represent the same core observed data, but the gray line is a smoothed-out version of the raw data. The pink line represents the actual <em>overall</em> quality of my day on a 10-point scale. There was one 10-rated day in 2019, which was in Coachella. That day was just awesome. But notice that the gray line doesn&#39;t get up to 10 on the same day? That&#39;s the down-side of smoothing-- while it&#39;s easier to see the steady rise and fall of my experience, it leaves out the actual extremes of what it means to just live. Unfortunately, all of the upcoming insights will do that, but the patterns they show, as (literally) insignificant as they seem, are the closest thing to an honest account of how 2019 went. </p>
-                <p>[Image]</p>
+                <a href={overallObservedQuality}><img src={overallObservedQuality} alt="chart of overall observe day quality throughout the year" /></a>
                 <h3 id="sleep">Sleep</h3>
                 <p>I sleep on average 7 hours and 25 minutes per night.</p>
-                <p>[!image of histogram]</p>
+                <img src={sleepHistogram} alt="histogram of the sleep I got in hours" />
                 <h3 id="weekdays">Weekdays</h3>
-                <p>I liked Sundays the least and Wednesdays the most, meaning I like hump day better than Saturday.</p>
-                <p>[!image of overlapping histograms]</p>
+                <p>I liked Sundays the least and Wednesdays the most, meaning I like hump day better than Saturday. Here, the X-axis is Overall Quality (Observed) and the height of the bars is the frequency that those quality ratings occurred.</p>
+                <a href={weekdayHistograms}><img src={weekdayHistograms} alt="overlapping histograms of wednesdays' and sundays' overall quality" /></a>
+                <p>(Repeating myself because I forgot the axes) Above, the X-axis is Overall Quality (Observed) and the height of the bars is the frequency that those quality ratings occurred.</p>
                 <h3 id="social">Social</h3>
                 <p>The <em>deeper</em> I connect with people, the better my day goes.</p>
-                <p>[!image of correlation]</p>
-                <h3 id="drinking">Drinking</h3>
-                <p>I like drinking more than not drinking.</p>
-                <p>[!image of overlapping histograms]</p>
-                <p>There isn&#39;t much of a correlation between how many drinks I have and how much my day improves. </p>
-                <p>[!image of scatterplot]</p>
+                <a href={socialScatter}><img src={socialScatter} alt="scatterplot of the quality of my day over the depth I meet people with" /></a>
+                <h3 id="alcohol">Alcohol</h3>
+                <p>I like drinking more than not drinking. Red=drinking, Blue=dry</p>
+                <a href={alcoholHistograms}><img src={alcoholHistograms} alt="overlapping histograms of drinking and dry overall quality" /></a>
+                <p>For the next one, notice that there isn&#39;t much of a correlation between how many drinks I have and how much my day improves. </p>
+                <a href={alcoholScatter}><img src={alcoholScatter} alt="scatterplot of quality of day over drinks consumed" /></a>
                 <h3 id="exercise">Exercise</h3>
-                <p>I like exercising a little more than being sedentary.</p>
+                <p>I like exercising a little more than being sedentary; on average days that I exercised I rated ~0.07 points higher overall.</p>
                 <p>In the red are days that I worked out and in the blue are days where I did not. The x-axis is the Overall Quality of my day and the height of the bars is the frequency that those quality ratings occurred. </p>
-                <p>[!image of histogram]</p>
+                <a href={workoutHistograms}><img src={workoutHistograms} alt="overlapping histograms of exercising and non-exercising overall quality" /></a>
                 <p>There isn&#39;t much of a correlation between how long I spent exercising and how well my day went. </p>
-                <p>[!image of correlation]</p>
+                <a href={workoutScatter}><img src={workoutScatter} alt="scatterplot of working out duration vs. quality of day" /></a>
                 <h3 id="stress">Stress</h3>
                 <p>The more stressed I am, the worse my day goes.</p>
-                <p>[!image of correlation]</p>
+                <a href={stressScatter}><img src={stressScatter} alt="scatterplot of stress vs. quality of day" /></a>
                 <h3 id="fun">Fun</h3>
                 <p>The more fun I have, the better my day goes.</p>
-                <p>[!image of correlation]</p>
+                <a href={funScatter}><img src={funScatter} alt="scatterplot of fun vs. quality of day" /></a>
             </div>
         )
     }
