@@ -1,4 +1,12 @@
-body {
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
+}
+
+/* body {
     background-color: rgb(255, 234, 207);
 }
 
@@ -30,6 +38,10 @@ h1 {
     text-align: center;
 }
 
+div#table-container {
+    overflow-x: auto;
+}
+
 table {
     width: 100%;
 }
@@ -49,4 +61,4 @@ td, th {
 img {
     width: 100%;
     border: 1px lightblue solid;
-}
+} */

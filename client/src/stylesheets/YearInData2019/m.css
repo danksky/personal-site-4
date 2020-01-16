@@ -1,0 +1,55 @@
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    body {
+        background-color: rgb(255, 234, 207);
+    }
+    
+    .YearInData2019 {
+        background-color: white;
+        box-shadow:  rgba(0, 0, 0, 0.5) 0 0  20px;
+        margin: 1%;
+        padding: 5%;
+    }
+    
+    #subtitle {
+        text-align: center;
+    }
+    
+    #toc {
+        margin: auto;
+        text-align: center;
+    }
+    
+    #toc .toc-item a {
+        text-decoration: none;
+    }
+    
+    h1 {
+        text-align: center;
+    }
+    
+    div#table-container {
+        overflow-x: auto;
+    }
+    
+    table {
+        width: 100%;
+    }
+    
+    table, th, td {
+        border-collapse: collapse;
+        margin: auto;
+        border: 1px solid black;
+    }
+    
+    td, th {
+        padding: 10px;
+        height: 3em;
+        
+    }
+    
+    img {
+        width: 100%;
+        border: 1px lightblue solid;
+    }
+}
