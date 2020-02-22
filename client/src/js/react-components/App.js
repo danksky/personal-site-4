@@ -104,7 +104,10 @@ class Home extends Component {
 	}
 
 	render() {
-		console.log(this.props.history);
+		if (this.props.history.location.pathname === "/") {
+			document.body.style.position = '';
+			window.scrollTo(0, this.state.scrollPosition)
+		}
 		return (
 			<div className="App">
 				<div className="title">DANIEL KAWALSKY</div>
