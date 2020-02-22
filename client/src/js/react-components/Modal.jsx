@@ -1,32 +1,11 @@
 import React, { Component } from 'react';
-import {isMobile} from "react-device-detect";
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { isMobile } from "react-device-detect";
 import { Line } from 'rc-progress';
 
-import {credits} from './Credits.js';
+import { credits } from './Credits.js';
 
 import '../../stylesheets/Modal.css';
-
-function tapToTopic(objectName)  {
-	if (objectName) {
-		objectName = objectName.toLowerCase();
-		if (objectName === "bulldozer" || objectName === "cone") 
-			return "Construction";
-		else if (objectName === "mailbox") 
-			return "Contact";
-		else if (objectName === "hobby" || objectName === "bumblebee" || objectName === "beehive") 
-			return "Hobbies";
-		else if (objectName === "goals") 
-			return "Goals";
-		else if (objectName === "work" || objectName === "office") 
-			return "Work";
-		else if (objectName === "travel") 
-			return "Travel";
-		else if (objectName === "daniel kawalsky") 
-			return "Credits"
-	}
-	return null;
-}
-        
 
 function TopicComponent(props) {
 	if (props.topic === null)
@@ -61,7 +40,7 @@ function TopicComponent(props) {
 		);
 	} else if (props.topic === "Credits") {
 		var sectionNames = Object.keys(credits);
-		var SectionListComponent = sectionNames.map(sectionName=> {
+		var SectionListComponent = sectionNames.map(sectionName => {
 			var Section = credits[sectionName];
 			var lineNames = Object.keys(Section);
 			var LineComponentList = lineNames.map(lineName => {
@@ -96,7 +75,7 @@ function TopicComponent(props) {
 		);
 	} else {
 		var Topic = ModalMap[props.topic];
-		var subtopicListNames= Object.keys(Topic);
+		var subtopicListNames = Object.keys(Topic);
 		var SubtopicListComponent = subtopicListNames.map(subtopicName => {
 			if (subtopicName === "image")
 				return null;
@@ -119,7 +98,7 @@ function TopicComponent(props) {
 					DetailComponent = (
 						<div className="detail">
 							<div className="detail-name">{detailsName}</div>
-							<Line percent={Detail.current/Detail.target*100} strokeWidth="4" strokeColor="lightblue" style={{width: "90%", marginLeft: "4.5%"}} />
+							<Line percent={Detail.current / Detail.target * 100} strokeWidth="4" strokeColor="lightblue" style={{ width: "90%", marginLeft: "4.5%" }} />
 						</div>
 					);
 				} else if (props.topic === "Work") {
@@ -136,13 +115,13 @@ function TopicComponent(props) {
 							<div className="detail-value">{Detail}</div>
 						</div>
 					);
-				} 
+				}
 				return DetailComponent;
 			});
 			var SubtopicComonent = (
 				<div className="subtopic">
 					<div className="subtopic-centerpiece-container">
-						<img className="subtopic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+Subtopic.image)}/>
+						<img className="subtopic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/' + Subtopic.image)} />
 					</div>
 					<div className="subtopic-title">{subtopicName}</div>
 					{DetailsSubtopicComponent}
@@ -184,18 +163,17 @@ export default class Modal extends Component {
 	render() {
 		if (this.props.topic === null)
 			return null;
-		var topic = tapToTopic(this.props.topic)
 		return (
 			<div className="modal-screen">
-			<div className="Modal" ref={this.ModalRef}>
-				<div className="scrollPrompter"></div>
-				<img className="x" onClick={this.tapToClose} alt="close button" src={require('../../media/2D/x-close.png')} />
-				<div className="topic-centerpiece-container">
-					<img className="topic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/'+ModalMap[topic].image)}/>
+				<div className="Modal" ref={this.ModalRef}>
+					<div className="scrollPrompter"></div>
+					<img className="x" onClick={this.tapToClose} alt="close button" src={require('../../media/2D/x-close.png')} />
+					<div className="topic-centerpiece-container">
+						<img className="topic-centerpiece" alt="modal graphic" src={require('../../media/2D/centerpieces/' + ModalMap[this.props.topic].image)} />
+					</div>
+					<div className="topic-title">{this.props.topic}</div>
+					<TopicComponent topic={this.props.topic}></TopicComponent>
 				</div>
-				<div className="topic-title">{topic}</div>
-				<TopicComponent topic={topic}></TopicComponent>
-			</div>
 			</div>
 		);
 	}
@@ -208,11 +186,8 @@ const ModalMap = {
 		image: "construction.png",
 		outstanding: [
 			"The best resolution that can be functionally rendered on Android without messing up the layout is DPR (density pixel ratio) of 1.",
-			"The screen cannot be turned sideways without confusing the CSS, nor can the website load starting sideways on mobile.",
+			"The screen cannot be turned sideways without confusing the CSS",
 			"The bee looks like it's running on an invisible rail.",
-			"The objects look like they're being born from a white plane. Borne, too. Either way, some dimensionality would help.",
-			"The initial loading time is horrendous. Heroku's time limit is ruinous.",
-			"The stabilizing rotor of the helicopter isn't spinning."
 		]
 	},
 	Contact: {
@@ -240,10 +215,14 @@ const ModalMap = {
 		},
 		bike: {
 			image: "bike.png",
-			model: {
-				text: "Nishiki Anasazi",
+			past: {
+				text: "2019 Nishiki Anasazi (stolen)",
 				link: "https://www.dickssportinggoods.com/p/nishiki-mens-anasazi-hybrid-bike-16nisanshknsz15xxdsb/16nisanshknsz15xxdsb"
-			}
+			},
+			current: {
+				text: "1998 Diamondback Outlook (temp)",
+				link: "https://www.bicyclebluebook.com/value-guide/product/74276/"
+			},
 		},
 		joke: {
 			image: "microphone.png",
@@ -258,7 +237,7 @@ const ModalMap = {
 				text: "Melee",
 				link: "https://www.ssbwiki.com/Peach_(SSBM)"
 			}
-		}, 
+		},
 		bee: {
 			image: "honeybee.png",
 			company: {
@@ -272,31 +251,35 @@ const ModalMap = {
 		read: {
 			image: "books.png",
 			books: {
-				current: 2,
-				target: 5,
+				current: 0,
+				target: 10,
 				// completed: ["Austerlitz", "My Life in My Words", "Factfulness"]
 			},
 		},
 		lift: {
 			image: "barbell.png",
 			"bench": {
-				current: 185,
+				current: 215,
 				target: 225
 			},
 			"squat": {
-				current: 225,
+				current: 255,
 				target: 315
 			},
 			"deadlift": {
-				current: 245,
+				current: 275,
 				target: 315
 			},
 		},
 		develop: {
 			image: "laptop.png",
-			"website": {
-				current: 50,
+			"website v1.0 hours": {
+				current: 55,
 				target: 60
+			},
+			"website v1.1 hours": {
+				current: 2,
+				target: 2
 			},
 		}
 	},
@@ -306,7 +289,7 @@ const ModalMap = {
 			image: "ibm.png",
 			company: {
 				text: "ibm ☁️",
-				link:"https://www.ibm.com/cloud",
+				link: "https://www.ibm.com/cloud",
 			}
 		},
 		lat: {
@@ -330,7 +313,7 @@ const ModalMap = {
 				link: "http://ict.usc.edu/"
 			}
 		},
-	}, 
+	},
 	Travel: {
 		image: "plane.png",
 		"South Africa": {
@@ -364,6 +347,26 @@ const ModalMap = {
 		"Australia": {
 			image: "au.svg",
 			duration: 8
+		},
+		"Belgium": {
+			image: "be.svg",
+			duration: 4
+		},
+		"Netherlands": {
+			image: "nl.svg",
+			duration: 3
+		},
+		"France": {
+			image: "fr.svg",
+			duration: 3
+		},
+		"Germany": {
+			image: "de.svg",
+			duration: 5
+		},
+		"Switzerland": {
+			image: "ch.svg",
+			duration: 3
 		},
 		"Hong Kong": {
 			image: "hk.svg",

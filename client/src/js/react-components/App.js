@@ -10,6 +10,27 @@ import '../../stylesheets/Landscape.css';
 
 import YearInData2019 from './pages/YearInData2019.jsx';
 
+function tapToTopic(objectName) {
+	if (objectName) {
+		objectName = objectName.toLowerCase();
+		if (objectName === "bulldozer" || objectName === "cone")
+			return "Construction";
+		else if (objectName === "mailbox")
+			return "Contact";
+		else if (objectName === "hobby" || objectName === "bumblebee" || objectName === "beehive")
+			return "Hobbies";
+		else if (objectName === "goals")
+			return "Goals";
+		else if (objectName === "work" || objectName === "office")
+			return "Work";
+		else if (objectName === "travel")
+			return "Travel";
+		else if (objectName === "daniel kawalsky")
+			return "Credits"
+	}
+	return null;
+}
+
 class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -17,7 +38,6 @@ class Home extends Component {
 			response: '',
 			post: '',
 			responseToPost: '',
-			selected: null,
 			scrollPosition: 0
 		};
 		this.handleCollisionEvent = this.handleCollisionEvent.bind(this);
@@ -61,11 +81,11 @@ class Home extends Component {
 		if (objectName !== null) {
 			console.log(objectName);
 			this.setState({
-				selected: objectName,
 				scrollPosition: window.scrollY
 			})
 			document.body.style.position = 'fixed';
 			document.body.style.cursor = "default";
+			this.props.history.push('/' + objectName);
 		}
 	}
 
@@ -76,21 +96,20 @@ class Home extends Component {
 	}
 
 	closeModal() {
-		this.setState({
-			selected: null,
-		});
-		// When the modal is hidden... we have to retrieve the scroll position.
 
+		// When the modal is hidden... we have to retrieve the scroll position.
+		this.props.history.push('/');
 		document.body.style.position = '';
 		window.scrollTo(0, this.state.scrollPosition)
 	}
 
 	render() {
+		console.log(this.props.history);
 		return (
 			<div className="App">
 				<div className="title">DANIEL KAWALSKY</div>
 				<Game handler={this.handleCollisionEvent}></Game>
-				<Modal topic={this.state.selected} closer={this.closeModal}></Modal>
+				<Modal topic={this.props.history.location.pathname !== "/" ? tapToTopic(this.props.history.location.pathname.substring(1)) : null} closer={this.closeModal}></Modal>
 				<Landscape></Landscape>
 			</div>
 		)
@@ -102,11 +121,19 @@ const App = () => (
 		<div>
 			<Switch>
 				<Route path="/year-in-data-2019" component={YearInData2019} />
+				<Route path="/Construction" component={Home} />
+				<Route path="/Contact" component={Home} />
+				<Route path="/Hobbies" component={Home} />
+				<Route path="/Goals" component={Home} />
+				<Route path="/Work" component={Home} />
+				<Route path="/Travel" component={Home} />
+				<Route path="/Credits" component={Home} />
 				<Route path="/" component={Home} />
 			</Switch>
 		</div>
 	</Router>
 );
+
 
 export default App;
 
